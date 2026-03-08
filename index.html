@@ -920,6 +920,103 @@ main {
 }
 .pb-list li strong { color: var(--text); }
 
+/* ─── CONFIRM MODAL ─── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  z-index: 400;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.confirm-overlay.active { display: flex; }
+.confirm-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  max-width: 400px;
+  width: 100%;
+  overflow: hidden;
+  animation: modalUp 0.3s cubic-bezier(0.34,1.4,0.64,1) both;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+}
+.confirm-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 32px 0;
+}
+.confirm-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.confirm-content {
+  padding: 20px 32px 28px;
+  text-align: center;
+}
+.confirm-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.confirm-desc {
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.confirm-unanswered-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(192,57,43,0.1);
+  border: 1px solid rgba(192,57,43,0.25);
+  color: #e07070;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin: 12px 0 4px;
+}
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 24px 24px;
+}
+.confirm-btn {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.confirm-btn.cancel {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+}
+.confirm-btn.cancel:hover { background: var(--surface3); color: var(--text); }
+.confirm-btn.proceed {
+  background: var(--gold);
+  color: #0d0f0e;
+}
+.confirm-btn.proceed:hover { background: var(--gold2); transform: translateY(-1px); }
+
 /* ─── FOOTER ─── */
 footer {
   background: var(--surface);
@@ -933,6 +1030,233 @@ footer {
 }
 footer strong { color: var(--gold3); }
 
+/* ─── MODE SELECTION MODAL ─── */
+.mode-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(10px);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.mode-overlay.active { display: flex; }
+.mode-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+  animation: modalUp 0.4s cubic-bezier(0.34,1.4,0.64,1) both;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+}
+.mode-header {
+  padding: 36px 32px 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.mode-header-icon {
+  font-size: 40px;
+  margin-bottom: 14px;
+  display: block;
+  filter: drop-shadow(0 4px 16px rgba(201,168,76,0.3));
+}
+.mode-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.mode-header p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.mode-cards {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mode-card {
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+.mode-card:hover { border-color: var(--border2); background: var(--surface3); }
+.mode-card.normal:hover { border-color: rgba(64,145,108,0.5); background: rgba(64,145,108,0.06); }
+.mode-card.survive:hover { border-color: rgba(192,57,43,0.5); background: rgba(192,57,43,0.06); }
+.mode-card-icon {
+  width: 48px; height: 48px;
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.mode-card.normal .mode-card-icon { background: rgba(64,145,108,0.15); border: 1px solid rgba(64,145,108,0.25); }
+.mode-card.survive .mode-card-icon { background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.22); }
+.mode-card-info { flex: 1; min-width: 0; }
+.mode-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.mode-card.normal .mode-card-title { color: var(--green3); }
+.mode-card.survive .mode-card-title { color: #e07070; }
+.mode-card-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.mode-card-arrow {
+  color: var(--text3);
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.mode-card:hover .mode-card-arrow { transform: translateX(3px); color: var(--text2); }
+.mode-badge-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 7px;
+  flex-wrap: wrap;
+}
+.mode-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.06em;
+}
+.mode-badge.green { background: rgba(64,145,108,0.12); border: 1px solid rgba(64,145,108,0.2); color: var(--green3); }
+.mode-badge.red { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.18); color: #e07070; }
+.mode-badge.gold { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.18); color: var(--gold2); }
+
+/* ─── MODE INDICATOR (sticky bar) ─── */
+.mode-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.mode-indicator.normal { background: rgba(64,145,108,0.1); border: 1px solid rgba(64,145,108,0.2); color: var(--green3); }
+.mode-indicator.survive { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.2); color: #e07070; }
+.mode-indicator:hover { opacity: 0.8; }
+.mode-indicator-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.mode-indicator.normal .mode-indicator-dot { background: var(--green3); }
+.mode-indicator.survive .mode-indicator-dot { background: #e07070; }
+
+/* ─── RESTART MODAL ─── */
+.restart-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  z-index: 450;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.restart-overlay.active { display: flex; }
+.restart-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  max-width: 440px;
+  width: 100%;
+  overflow: hidden;
+  animation: modalUp 0.3s cubic-bezier(0.34,1.4,0.64,1) both;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+}
+.restart-header {
+  padding: 28px 28px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.restart-header span { font-size: 36px; display: block; margin-bottom: 12px; }
+.restart-header h3 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+.restart-header p { font-size: 12.5px; color: var(--text2); }
+.restart-mode-pick {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.restart-mode-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 2px;
+}
+.restart-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  background: var(--surface2);
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.restart-mode-btn:hover { background: var(--surface3); border-color: var(--border2); }
+.restart-mode-btn.active-mode.normal { border-color: rgba(64,145,108,0.5); background: rgba(64,145,108,0.07); }
+.restart-mode-btn.active-mode.survive { border-color: rgba(192,57,43,0.45); background: rgba(192,57,43,0.07); }
+.restart-mode-btn-icon { font-size: 18px; }
+.restart-mode-btn-text { flex: 1; text-align: left; }
+.restart-mode-btn-name { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.restart-mode-btn.normal .restart-mode-btn-name { color: var(--green3); }
+.restart-mode-btn.survive .restart-mode-btn-name { color: #e07070; }
+.restart-mode-btn-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.restart-mode-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+.restart-mode-btn.active-mode.normal .restart-mode-check { background: var(--green3); border-color: var(--green3); color: #fff; }
+.restart-mode-btn.active-mode.survive .restart-mode-check { background: #e07070; border-color: #e07070; color: #fff; }
+.restart-actions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 20px;
+}
+.restart-btn {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.restart-btn.cancel { background: var(--surface2); border: 1px solid var(--border2); color: var(--text2); }
+.restart-btn.cancel:hover { background: var(--surface3); color: var(--text); }
+.restart-btn.go { background: var(--gold); color: #0d0f0e; }
+.restart-btn.go:hover { background: var(--gold2); transform: translateY(-1px); }
+
 @media (max-width: 600px) {
   .hero-stats { flex-direction: column; border: none; gap: 0; }
   .hero-stat { border-right: none; border-bottom: 1px solid var(--border2); }
@@ -941,10 +1265,46 @@ footer strong { color: var(--gold3); }
   .q-narasi, .q-stem, .kunci-area { margin-left: 0; }
   .q-card { padding: 24px 18px; }
   .modal-hero { padding: 36px 24px 28px; }
-  .score-num { font-size: 64px; }
-  .modal-eval, .modal-actions { padding: 20px; }
+  .score-num { font-size: 48px; }
+  .modal-eval, .modal-actions { padding: 16px; }
   .eval-item { grid-template-columns: auto 1fr; }
   .eval-score-badge { grid-column: 2; margin-left: 48px; margin-top: -2px; }
+
+  /* Pembahasan responsive */
+  .pembahasan-overlay { padding: 0; align-items: flex-end; }
+  .pembahasan-panel {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .pb-header { padding: 20px 18px 16px; }
+  .pb-header-left h2 { font-size: 17px; }
+  .pb-tabs { padding: 0 16px; }
+  .pb-tab { padding: 12px 12px; font-size: 12px; }
+  .pb-body { padding: 18px 16px 28px; overflow-y: auto; flex: 1; }
+  .pb-q-head { padding: 12px 14px; }
+  .pb-q-body { padding: 12px 14px 14px 14px; }
+  .pb-answer-row { flex-wrap: wrap; }
+  .pb-answer-text { font-size: 12px; }
+  .pb-materi-card { padding: 14px 15px; }
+
+  /* Responsive tables in pembahasan */
+  .pb-table { font-size: 11.5px; }
+  .pb-table th { padding: 7px 8px; font-size: 10px; }
+  .pb-table td { padding: 7px 8px; }
+
+  /* Mode modal */
+  .mode-cards { padding: 16px; gap: 10px; }
+  .mode-card { padding: 14px 16px; gap: 12px; }
+  .mode-card-icon { width: 40px; height: 40px; font-size: 18px; }
+  .mode-header { padding: 28px 20px 20px; }
+
+  /* Restart modal */
+  .restart-mode-pick { padding: 14px 16px; }
+  .restart-actions { padding: 14px 16px; }
+  .modal-actions { flex-direction: column; }
+  .btn-modal { min-width: unset; }
 }
 </style>
 </head>
@@ -977,6 +1337,10 @@ footer strong { color: var(--gold3); }
   <div class="sticky-inner">
     <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
     <div class="prog-text"><strong id="answeredCount">0</strong> / 40 dijawab</div>
+    <div class="mode-indicator" id="modeIndicator" onclick="openRestart()">
+      <span class="mode-indicator-dot"></span>
+      <span id="modeIndicatorLabel">Mode</span>
+    </div>
   </div>
 </div>
 
@@ -992,6 +1356,103 @@ footer strong { color: var(--gold3); }
 <footer>
   <strong>SMK Informatika Pesat</strong> · Latihan PAI · Tahun Pelajaran 2025/2026
 </footer>
+
+<!-- ─── MODE SELECTION MODAL (on load) ─── -->
+<div class="mode-overlay" id="modeOverlay">
+  <div class="mode-box">
+    <div class="mode-header">
+      <span class="mode-header-icon">🕌</span>
+      <h2>Pilih Mode Latihan</h2>
+      <p>Sesuaikan mode belajar dengan kebutuhanmu sebelum memulai</p>
+    </div>
+    <div class="mode-cards">
+      <div class="mode-card normal" onclick="selectMode('normal')">
+        <div class="mode-card-icon">📖</div>
+        <div class="mode-card-info">
+          <div class="mode-card-title">Mode Normal</div>
+          <div class="mode-card-desc">Belajar dengan bantuan. Kunci jawaban tersedia di setiap soal untuk membantu pemahaman.</div>
+          <div class="mode-badge-row">
+            <span class="mode-badge green">Kunci Tersedia</span>
+            <span class="mode-badge green">Pembahasan Lengkap</span>
+            <span class="mode-badge gold">Cocok untuk Belajar</span>
+          </div>
+        </div>
+        <span class="mode-card-arrow">›</span>
+      </div>
+      <div class="mode-card survive" onclick="selectMode('survive')">
+        <div class="mode-card-icon">🔥</div>
+        <div class="mode-card-info">
+          <div class="mode-card-title">Mode Survive</div>
+          <div class="mode-card-desc">Ujian sesungguhnya. Tidak ada kunci jawaban selama mengerjakan — uji kemampuan murnimu!</div>
+          <div class="mode-badge-row">
+            <span class="mode-badge red">Tanpa Kunci</span>
+            <span class="mode-badge green">Pembahasan Setelah Submit</span>
+            <span class="mode-badge red">Tantangan Penuh</span>
+          </div>
+        </div>
+        <span class="mode-card-arrow">›</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── RESTART MODAL ─── -->
+<div class="restart-overlay" id="restartOverlay">
+  <div class="restart-box">
+    <div class="restart-header">
+      <span>↺</span>
+      <h3>Ulangi atau Ganti Mode</h3>
+      <p>Pilih mode yang ingin digunakan, lalu mulai ulang latihan</p>
+    </div>
+    <div class="restart-mode-pick">
+      <div class="restart-mode-label">Pilih Mode</div>
+      <div class="restart-mode-btn normal" id="restartBtnNormal" onclick="setRestartMode('normal')">
+        <span class="restart-mode-btn-icon">📖</span>
+        <div class="restart-mode-btn-text">
+          <div class="restart-mode-btn-name">Mode Normal</div>
+          <div class="restart-mode-btn-sub">Kunci jawaban tersedia di tiap soal</div>
+        </div>
+        <div class="restart-mode-check" id="restartCheckNormal">✓</div>
+      </div>
+      <div class="restart-mode-btn survive" id="restartBtnSurvive" onclick="setRestartMode('survive')">
+        <span class="restart-mode-btn-icon">🔥</span>
+        <div class="restart-mode-btn-text">
+          <div class="restart-mode-btn-name">Mode Survive</div>
+          <div class="restart-mode-btn-sub">Tanpa kunci — uji kemampuan murni</div>
+        </div>
+        <div class="restart-mode-check" id="restartCheckSurvive">✓</div>
+      </div>
+    </div>
+    <div class="restart-actions">
+      <button class="restart-btn cancel" onclick="closeRestart()">Batal</button>
+      <button class="restart-btn go" onclick="applyRestart()">Mulai Ulang ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONFIRM SUBMIT MODAL ─── -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon-wrap">
+      <div class="confirm-icon">📋</div>
+    </div>
+    <div class="confirm-content">
+      <div class="confirm-title">Kumpulkan Jawaban?</div>
+      <div class="confirm-desc">
+        Masih terdapat soal yang belum dijawab:
+        <div class="confirm-unanswered-badge">
+          <span>⚠</span>
+          <span id="confirmUnansweredCount">0</span> soal belum dijawab
+        </div>
+        <br>Jawaban yang kosong akan dihitung <strong style="color:#e07070">salah</strong>. Yakin ingin mengumpulkan?
+      </div>
+    </div>
+    <div class="confirm-actions">
+      <button class="confirm-btn cancel" onclick="closeConfirm()">← Kembali</button>
+      <button class="confirm-btn proceed" onclick="proceedSubmit()">Kumpulkan ✦</button>
+    </div>
+  </div>
+</div>
 
 <!-- ─── RESULT MODAL ─── -->
 <div class="modal-overlay" id="modalOverlay">
@@ -1030,7 +1491,7 @@ footer strong { color: var(--gold3); }
     </div>
 
     <div class="modal-actions">
-      <button class="btn-modal secondary" onclick="retryQuiz()">↺ Ulangi Latihan</button>
+      <button class="btn-modal secondary" onclick="closeModal();openRestart()">↺ Ulangi / Ganti Mode</button>
       <button class="btn-modal primary" onclick="openPembahasan()">Lihat Pembahasan →</button>
     </div>
 
@@ -1305,6 +1766,8 @@ const SOAL = [
 const KEYS = ['A','B','C','D','E'];
 let answers = {};
 let submitted = false;
+let currentMode = 'normal'; // 'normal' | 'survive'
+let restartSelectedMode = 'normal';
 
 // ─── RENDER ───
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -1342,7 +1805,7 @@ function renderQuiz(){
       ${narasiHtml}
       <div class="q-stem">${esc(s.stem)}</div>
       <div class="options">${opsiHtml}</div>
-      <div class="kunci-area">
+      <div class="kunci-area" id="kunci-area-${s.no}" style="${currentMode === 'survive' ? 'display:none' : ''}">
         <button class="kunci-btn" onclick="toggleKunci(${s.no},this)">Lihat kunci</button>
         <div class="kunci-reveal" id="kunci-${s.no}">Kunci Jawaban: <strong>${s.kunci}</strong></div>
       </div>
@@ -1380,8 +1843,23 @@ function submitQuiz(){
   if(submitted) return;
   const unanswered = SOAL.length - Object.keys(answers).length;
   if(unanswered > 0){
-    if(!confirm(`Masih ada ${unanswered} soal yang belum dijawab. Kumpulkan sekarang?`)) return;
+    document.getElementById('confirmUnansweredCount').textContent = unanswered;
+    document.getElementById('confirmOverlay').classList.add('active');
+    return;
   }
+  doSubmit();
+}
+
+function closeConfirm(){
+  document.getElementById('confirmOverlay').classList.remove('active');
+}
+
+function proceedSubmit(){
+  closeConfirm();
+  doSubmit();
+}
+
+function doSubmit(){
   submitted = true;
   document.getElementById('btnSubmit').disabled = true;
   highlightAnswers();
@@ -1544,6 +2022,71 @@ function retryQuiz(){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+// ─── MODE LOGIC ───
+function selectMode(mode){
+  currentMode = mode;
+  document.getElementById('modeOverlay').classList.remove('active');
+  applyModeIndicator();
+  renderQuiz();
+  updateProgress();
+}
+
+function applyModeIndicator(){
+  const ind = document.getElementById('modeIndicator');
+  const lbl = document.getElementById('modeIndicatorLabel');
+  ind.className = 'mode-indicator ' + currentMode;
+  lbl.textContent = currentMode === 'normal' ? 'Normal' : 'Survive';
+}
+
+// ─── RESTART MODAL ───
+function openRestart(){
+  restartSelectedMode = currentMode;
+  updateRestartUI();
+  document.getElementById('restartOverlay').classList.add('active');
+}
+
+function closeRestart(){
+  document.getElementById('restartOverlay').classList.remove('active');
+}
+
+function setRestartMode(mode){
+  restartSelectedMode = mode;
+  updateRestartUI();
+}
+
+function updateRestartUI(){
+  ['normal','survive'].forEach(m => {
+    const btn = document.getElementById('restartBtn' + m.charAt(0).toUpperCase() + m.slice(1));
+    const chk = document.getElementById('restartCheck' + m.charAt(0).toUpperCase() + m.slice(1));
+    if(m === restartSelectedMode){
+      btn.classList.add('active-mode', m);
+      chk.textContent = '✓';
+    } else {
+      btn.classList.remove('active-mode','normal','survive');
+      chk.textContent = '';
+    }
+  });
+}
+
+function applyRestart(){
+  currentMode = restartSelectedMode;
+  closeRestart();
+  answers = {};
+  submitted = false;
+  closeModal();
+  closePembahasan();
+  renderQuiz();
+  updateProgress();
+  applyModeIndicator();
+  document.getElementById('btnSubmit').disabled = false;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ─── SHOW MODE ON LOAD ───
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('modeOverlay').classList.add('active');
+});
+
 // ─── PEMBAHASAN ───
 const PEMBAHASAN = {
   1:  { jawaban:"C — Amalan yang jika dikerjakan mendapat pahala, namun tidak berdosa jika ditinggalkan", penjelasan:"Ibadah sunnah memiliki ciri khas: ada pahala jika dikerjakan, tetapi <strong>tidak ada dosa</strong> jika ditinggalkan. Ini berbeda dengan ibadah wajib yang berdosa bila ditinggalkan. Contoh dalam narasi: Ahmad tidak berdosa ketika melewatkan tahajud karena kelelahan — itulah bukti statusnya sebagai sunnah." },
@@ -1660,8 +2203,7 @@ function renderPembahasanSoal(){
   });
 }
 
-// Init
-renderQuiz();
+// Init — quiz renders after mode selection via selectMode()
 updateProgress();
 </script>
 
