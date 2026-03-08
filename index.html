@@ -271,7 +271,6 @@ main {
   font-size: 13.5px;
   line-height: 1.72;
   color: var(--text2);
-  font-size: 13.5px;
   font-style: normal;
 }
 .q-narasi div + div { margin-top: 4px; }
@@ -627,7 +626,6 @@ main {
   padding: 20px;
   font-size: 14px;
   color: var(--green3);
-  font-style: normal;
 }
 
 /* Modal actions */
@@ -661,6 +659,266 @@ main {
   color: #0d0f0e;
 }
 .btn-modal.primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ─── PEMBAHASAN PANEL ─── */
+.pembahasan-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(8px);
+  z-index: 300;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+.pembahasan-overlay.active { display: flex; }
+.pembahasan-panel {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  max-width: 780px;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  animation: modalUp 0.4s cubic-bezier(0.34,1.4,0.64,1) both;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+}
+.pb-header {
+  padding: 28px 32px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 10;
+}
+.pb-header-left h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+.pb-header-left p {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.pb-close {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.pb-close:hover { background: var(--surface3); color: var(--text); }
+
+/* Tab navigation */
+.pb-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pb-tabs::-webkit-scrollbar { display: none; }
+.pb-tab {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.pb-tab:hover { color: var(--text2); }
+.pb-tab.active { color: var(--gold2); border-bottom-color: var(--gold); }
+
+/* Tab content */
+.pb-body { padding: 28px 32px 36px; }
+.pb-section { display: none; }
+.pb-section.active { display: block; }
+
+/* Pembahasan cards */
+.pb-bab-title {
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.pb-bab-title:first-child { margin-top: 0; }
+
+.pb-q-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.pb-q-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.pb-q-head:hover { background: var(--surface3); }
+.pb-q-num {
+  flex-shrink: 0;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text3);
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-top: 2px;
+}
+.pb-q-text { font-size: 13.5px; font-weight: 500; color: var(--text); flex: 1; line-height: 1.5; }
+.pb-q-arrow {
+  flex-shrink: 0;
+  color: var(--text3);
+  font-size: 12px;
+  margin-top: 3px;
+  transition: transform 0.2s;
+}
+.pb-q-card.open .pb-q-arrow { transform: rotate(90deg); }
+.pb-q-body {
+  display: none;
+  padding: 14px 18px 16px 42px;
+  border-top: 1px solid var(--border);
+}
+.pb-q-card.open .pb-q-body { display: block; }
+
+.pb-answer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.pb-kunci-badge {
+  background: rgba(64,145,108,0.15);
+  border: 1px solid rgba(82,183,136,0.3);
+  color: var(--green3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+.pb-answer-text {
+  font-size: 13px;
+  color: var(--green3);
+  font-weight: 500;
+}
+.pb-penjelasan {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.pb-penjelasan strong { color: var(--text); font-weight: 600; }
+.pb-penjelasan .dalil {
+  background: var(--surface);
+  border-left: 3px solid var(--gold3);
+  padding: 8px 14px;
+  margin: 8px 0;
+  font-size: 12.5px;
+  color: var(--text2);
+  border-radius: 0 8px 8px 0;
+}
+
+/* Materi ringkas cards */
+.pb-materi-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+}
+.pb-materi-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pb-materi-title::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 14px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.pb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.pb-table th {
+  background: var(--surface3);
+  color: var(--text2);
+  font-weight: 600;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border2);
+}
+.pb-table td {
+  padding: 9px 12px;
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+  vertical-align: top;
+}
+.pb-table tr:last-child td { border-bottom: none; }
+.pb-table tr:hover td { background: rgba(255,255,255,0.02); }
+.pb-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pb-list li {
+  font-size: 13px;
+  color: var(--text2);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.55;
+}
+.pb-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--gold3);
+  font-weight: 600;
+}
+.pb-list li strong { color: var(--text); }
 
 /* ─── FOOTER ─── */
 footer {
@@ -773,11 +1031,231 @@ footer strong { color: var(--gold3); }
 
     <div class="modal-actions">
       <button class="btn-modal secondary" onclick="retryQuiz()">↺ Ulangi Latihan</button>
-      <button class="btn-modal primary" onclick="closeModal()">Lihat Pembahasan</button>
+      <button class="btn-modal primary" onclick="openPembahasan()">Lihat Pembahasan →</button>
     </div>
 
   </div>
 </div>
+
+<!-- ─── PEMBAHASAN PANEL ─── -->
+<div class="pembahasan-overlay" id="pembahasanOverlay">
+  <div class="pembahasan-panel">
+    <div class="pb-header">
+      <div class="pb-header-left">
+        <h2>Pembahasan &amp; Materi</h2>
+        <p>Pendidikan Agama Islam · SMK Informatika Pesat</p>
+      </div>
+      <button class="pb-close" onclick="closePembahasan()">✕</button>
+    </div>
+    <div class="pb-tabs">
+      <button class="pb-tab active" onclick="switchTab('soal')">Per Soal</button>
+      <button class="pb-tab" onclick="switchTab('ibadah')">Ibadah Sunnah</button>
+      <button class="pb-tab" onclick="switchTab('wudhu')">Wudhu &amp; Dhuha</button>
+      <button class="pb-tab" onclick="switchTab('shalat')">Tata Cara Shalat</button>
+      <button class="pb-tab" onclick="switchTab('jenazah')">Jenazah</button>
+      <button class="pb-tab" onclick="switchTab('nikah')">Pernikahan</button>
+    </div>
+    <div class="pb-body">
+
+      <!-- TAB: PER SOAL -->
+      <div class="pb-section active" id="tab-soal">
+        <div id="pembahasanSoalList"></div>
+      </div>
+
+      <!-- TAB: IBADAH SUNNAH -->
+      <div class="pb-section" id="tab-ibadah">
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Pengertian Ibadah Sunnah</div>
+          <p class="pb-penjelasan">Ibadah Sunnah adalah amalan yang <strong>jika dikerjakan mendapat pahala, namun tidak berdosa jika ditinggalkan</strong>. Berbeda dengan ibadah wajib yang berdosa bila ditinggalkan.</p>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Pembagian Sunnah Nabi</div>
+          <table class="pb-table">
+            <tr><th>Jenis</th><th>Pengertian</th><th>Contoh</th></tr>
+            <tr><td><strong style="color:var(--gold2)">Qawliyah</strong></td><td>Segala ucapan/perkataan Nabi SAW yang dijadikan dasar hukum</td><td>Hadits-hadits sabda Nabi</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Fi'liyyah</strong></td><td>Segala perbuatan Nabi SAW yang diriwayatkan para sahabat</td><td>Tata cara shalat, haji</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Taqririyyah</strong></td><td>Sikap diam Nabi SAW terhadap perbuatan sahabat sebagai persetujuan</td><td>Sahabat melakukan sesuatu, Nabi diam</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Sunnah Muakadah vs Ghairu Muakadah</div>
+          <table class="pb-table">
+            <tr><th>Jenis</th><th>Keterangan</th><th>Contoh</th></tr>
+            <tr><td><strong style="color:var(--green3)">Muakadah</strong></td><td>Sangat dianjurkan, selalu dikerjakan Rasulullah dan tidak pernah ditinggalkan</td><td>Shalat rawatib, tahajud, dhuha, dzikir</td></tr>
+            <tr><td><strong style="color:var(--text2)">Ghairu Muakadah</strong></td><td>Kadang dikerjakan kadang ditinggalkan oleh Nabi SAW</td><td>Shalat qabliyyah isya, puasa Senin-Kamis</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: WUDHU & DHUHA -->
+      <div class="pb-section" id="tab-wudhu">
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Keutamaan Menjaga Wudhu</div>
+          <table class="pb-table">
+            <tr><th>Keutamaan</th><th>Dalil</th></tr>
+            <tr><td><strong style="color:var(--text)">Dicintai Allah</strong></td><td>QS. Al-Baqarah: 222 — Allah mencintai orang yang bertaubat dan mensucikan diri</td></tr>
+            <tr><td><strong style="color:var(--text)">Menghapus dosa &amp; meninggikan derajat</strong></td><td>HR. Muslim no. 251 — Menyempurnakan wudhu saat sulit, memperbanyak langkah ke masjid</td></tr>
+            <tr><td><strong style="color:var(--text)">Dosa gugur bersama tetesan air</strong></td><td>HR. Muslim no. 244 — Ketika membasuh wajah, tangan, kaki, dosa ikut keluar</td></tr>
+            <tr><td><strong style="color:var(--text)">Dijaga &amp; didoakan malaikat</strong></td><td>HR. Ibnu Hibban no. 1051 — Tidur dalam keadaan suci, malaikat doakan ampunan</td></tr>
+            <tr><td><strong style="color:var(--text)">Bercahaya di hari kiamat</strong></td><td>HR. Bukhari no. 136 &amp; Muslim no. 246 — Umat Nabi dipanggil dalam keadaan bercahaya</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Keutamaan Shalat Dhuha</div>
+          <table class="pb-table">
+            <tr><th>Keutamaan</th><th>Dalil</th></tr>
+            <tr><td><strong style="color:var(--text)">Sedekah bagi seluruh persendian</strong></td><td>HR. Muslim no. 720 — 2 rakaat dhuha mencukupi sedekah 360 persendian/hari</td></tr>
+            <tr><td><strong style="color:var(--text)">Mendapat kecukupan dari Allah</strong></td><td>HR. Ahmad &amp; Tirmidzi no. 475 — 4 rakaat di awal siang, Allah cukupkan kebutuhan di akhir hari</td></tr>
+            <tr><td><strong style="color:var(--text)">Ditulis sebagai ahli ibadah</strong></td><td>HR. Thabrani — 8 rakaat ditulis sebagai orang taat; 12 rakaat dibangunkan rumah di surga</td></tr>
+            <tr><td><strong style="color:var(--text)">Waktu penuh keberkahan</strong></td><td>QS. Adh-Dhuha: 1–2 — Allah bersumpah atas waktu dhuha sebagai tanda kemuliaannya</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Arti Doa Iftitah (Penggalan)</div>
+          <ul class="pb-list">
+            <li>"Allahu Akbaru kabiiron..." → <strong>Allah Maha Besar, sempurna kebesaran-Nya. Segala puji bagi Allah.</strong></li>
+            <li>"Inni wajjahtu wajhiya..." → <strong>Sungguh kuhadapkan wajahku kepada Dzat yang menciptakan langit dan bumi, dengan ketulusan. Aku bukan termasuk orang musyrik.</strong></li>
+            <li>"Inna shalaati..." → <strong>Sesungguhnya shalatku, ibadahku, hidupku dan matiku hanya untuk Allah Tuhan semesta alam.</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TAB: TATA CARA SHALAT -->
+      <div class="pb-section" id="tab-shalat">
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Terjemahan Bacaan Shalat</div>
+          <table class="pb-table">
+            <tr><th>Bacaan</th><th>Terjemahan</th></tr>
+            <tr><td><strong style="color:var(--gold2)">Ruku'</strong> — Subhaana rabbiyal 'azhiimi</td><td>Maha Suci Tuhanku Yang Maha <strong>Agung</strong> dan segala puji bagi-Nya</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Sujud</strong> — Subhaana rabbiyal a'laa</td><td>Maha Suci Tuhanku Yang Maha <strong>Tinggi</strong> dan segala puji bagi-Nya</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Al-Fatihah ayat 4</strong> — Iyyaaka na'budu</td><td>Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Niat wudhu</strong></td><td>Niat wudhu untuk menghilangkan hadats kecil karena Allah</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Niat mandi wajib</strong></td><td>Niat mandi wajib untuk menghilangkan hadats besar karena Allah</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Gerakan Shalat: Takbir, Ruku', Sujud</div>
+          <table class="pb-table">
+            <tr><th>Gerakan</th><th>Ciri Khas</th></tr>
+            <tr><td><strong style="color:var(--green3)">Takbiratul Ihram</strong></td><td>Berdiri tegak, angkat tangan sejajar telinga (laki-laki) / bahu (perempuan), ucap "Allahu Akbar"</td></tr>
+            <tr><td><strong style="color:var(--green3)">Ruku'</strong></td><td>Punggung rata sejajar lantai, kepala sejajar punggung, tangan pegang lutut</td></tr>
+            <tr><td><strong style="color:var(--green3)">Sujud</strong></td><td>7 anggota menempel: dahi+hidung, 2 telapak tangan, 2 lutut, ujung jari 2 kaki. Lengan terangkat, perut tidak menempel paha</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Syarat Wajib vs Syarat Sah Shalat</div>
+          <table class="pb-table">
+            <tr><th>Syarat Wajib</th><th>Syarat Sah (tambahan)</th></tr>
+            <tr><td>Beragama Islam</td><td>Suci dari hadats kecil &amp; besar</td></tr>
+            <tr><td>Baligh</td><td>Masuk waktu shalat</td></tr>
+            <tr><td>Berakal sehat</td><td>Menghadap kiblat</td></tr>
+            <tr><td>Tidak sedang haid/nifas</td><td>Menutup aurat</td></tr>
+            <tr><td>Mendengar dakwah Islam</td><td>Suci badan, pakaian, dan tempat</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Rukun Shalat (13 Rukun)</div>
+          <table class="pb-table">
+            <tr><th>No</th><th>Rukun</th><th>Keterangan</th></tr>
+            <tr><td>1</td><td><strong style="color:var(--text)">Niat</strong></td><td>Diniatkan dalam hati</td></tr>
+            <tr><td>2</td><td><strong style="color:var(--text)">Takbiratul Ihram</strong></td><td>Membaca "Allahu Akbar" di awal</td></tr>
+            <tr><td>3</td><td><strong style="color:var(--text)">Berdiri Tegak</strong></td><td>Bagi yang mampu</td></tr>
+            <tr><td>4</td><td><strong style="color:var(--text)">Membaca Al-Fatihah</strong></td><td>Di setiap rakaat</td></tr>
+            <tr><td>5</td><td><strong style="color:var(--text)">Ruku' + Tuma'ninah</strong></td><td>Punggung rata, tenang sejenak</td></tr>
+            <tr><td>6</td><td><strong style="color:var(--text)">I'tidal</strong></td><td>Bangkit dari ruku' hingga berdiri tegak</td></tr>
+            <tr><td>7</td><td><strong style="color:var(--text)">Sujud + Tuma'ninah</strong></td><td>2x setiap rakaat, 7 anggota menempel</td></tr>
+            <tr><td>8</td><td><strong style="color:var(--text)">Duduk antara 2 sujud</strong></td><td>Sejenak antara sujud pertama dan kedua</td></tr>
+            <tr><td>9</td><td><strong style="color:var(--text)">Tahiyat Akhir</strong></td><td>Duduk membaca tasyahud di rakaat terakhir</td></tr>
+            <tr><td>10</td><td><strong style="color:var(--text)">Shalawat Nabi</strong></td><td>Saat tahiyat akhir</td></tr>
+            <tr><td>11</td><td><strong style="color:var(--text)">Salam</strong></td><td>Menoleh kanan lalu kiri</td></tr>
+            <tr><td>12</td><td><strong style="color:var(--text)">Tertib</strong></td><td>Berurutan sesuai urutannya</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Jenis Najis &amp; Cara Mensucikan</div>
+          <table class="pb-table">
+            <tr><th>Jenis</th><th>Contoh</th><th>Cara Sucikan</th></tr>
+            <tr><td><strong style="color:var(--green3)">Mukhaffafah (Ringan)</strong></td><td>Air kencing bayi laki-laki yang belum makan selain ASI</td><td>Cukup dipercikkan air</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Mutawassitah (Sedang)</strong></td><td>Darah, kotoran manusia/hewan, air kencing, muntah</td><td>Dicuci hingga hilang warna, bau, rasa</td></tr>
+            <tr><td><strong style="color:var(--red2)">Mughallazhah (Berat)</strong></td><td>Jilatan/air liur anjing dan babi</td><td>Dicuci 7x, salah satunya dicampur tanah</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: JENAZAH -->
+      <div class="pb-section" id="tab-jenazah">
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Hukum &amp; Urutan Pengurusan Jenazah</div>
+          <p class="pb-penjelasan" style="margin-bottom:12px"><strong>Fardhu Kifayah</strong> — kewajiban kolektif. Jika sudah ada yang melaksanakan, gugur bagi yang lain. Jika tidak ada sama sekali, seluruh masyarakat berdosa.</p>
+          <ul class="pb-list">
+            <li><strong>Urutan wajib:</strong> Memandikan → Mengkafani → Menshalatkan → Menguburkan</li>
+          </ul>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Ketentuan Kain Kafan</div>
+          <table class="pb-table">
+            <tr><th>Jenis Kelamin</th><th>Jumlah Lapis</th></tr>
+            <tr><td>Laki-laki</td><td><strong style="color:var(--text)">3 lapis</strong></td></tr>
+            <tr><td>Perempuan</td><td><strong style="color:var(--text)">5 lapis</strong></td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Yang Berhak Memandikan Jenazah</div>
+          <ul class="pb-list">
+            <li><strong>Jenazah dewasa:</strong> dimandikan oleh mahramnya (suami, istri, atau anak)</li>
+            <li><strong>Jenazah anak:</strong> boleh oleh perempuan atau laki-laki dewasa, lebih baik mahramnya</li>
+          </ul>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Tata Cara Shalat Jenazah (4 Takbir)</div>
+          <table class="pb-table">
+            <tr><th>Takbir</th><th>Bacaan</th></tr>
+            <tr><td>Takbir 1</td><td>Membaca Al-Fatihah</td></tr>
+            <tr><td>Takbir 2</td><td>Membaca Shalawat Nabi</td></tr>
+            <tr><td>Takbir 3</td><td>Membaca doa untuk jenazah</td></tr>
+            <tr><td>Takbir 4</td><td>Membaca doa penutup, lalu salam</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: PERNIKAHAN -->
+      <div class="pb-section" id="tab-nikah">
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Hukum Pernikahan (5 Hukum)</div>
+          <table class="pb-table">
+            <tr><th>Hukum</th><th>Kondisi</th></tr>
+            <tr><td><strong style="color:var(--red2)">Wajib</strong></td><td>Mampu fisik, mental, ekonomi &amp; akhlak, dan khawatir terjerumus maksiat jika tidak menikah</td></tr>
+            <tr><td><strong style="color:var(--green3)">Sunnah</strong></td><td>Sudah mampu namun tidak khawatir terjerumus kemaksiatan</td></tr>
+            <tr><td><strong style="color:var(--text2)">Mubah</strong></td><td>Mampu dan aman dari fitnah, namun sudah lanjut usia</td></tr>
+            <tr><td><strong style="color:var(--gold2)">Makruh</strong></td><td>Mampu menikah tetapi dikhawatirkan akan menyakiti atau menzalimi istri</td></tr>
+            <tr><td><strong style="color:var(--red)">Haram</strong></td><td>Yakin tidak mampu melaksanakan kewajiban dan justru akan membahayakan calonnya</td></tr>
+          </table>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Rukun Nikah (5 Rukun)</div>
+          <ul class="pb-list">
+            <li><strong>Calon Suami</strong> — laki-laki yang akan menikah</li>
+            <li><strong>Calon Istri</strong> — perempuan yang akan dinikahi</li>
+            <li><strong>Wali</strong> — pihak yang menikahkan (biasanya ayah/wali nasab)</li>
+            <li><strong>2 Orang Saksi</strong> — menyaksikan akad nikah secara langsung</li>
+            <li><strong>Sigah / Ijab Qabul</strong> — ucapan serah terima akad antara wali dan calon suami</li>
+          </ul>
+        </div>
+        <div class="pb-materi-card">
+          <div class="pb-materi-title">Hak &amp; Kewajiban Suami-Istri</div>
+          <table class="pb-table">
+            <tr><th>Hak/Kewajiban Suami</th><th>Hak/Kewajiban Istri</th></tr>
+            <tr><td>Wajib memberi nafkah, pakaian, tempat tinggal</td><td>Berhak mendapat nafkah, pakaian, tempat tinggal</td></tr>
+            <tr><td>Wajib menggauli istri dengan layak &amp; kasih sayang</td><td>Berhak mendapat perlakuan patut &amp; bimbingan agama</td></tr>
+            <tr><td>Berhak ditaati istri (dalam kebaikan)</td><td>Wajib patuh pada suami selama tidak bertentangan Islam</td></tr>
+            <tr><td>Memimpin &amp; membimbing keluarga</td><td>Menjaga kehormatan diri, keluarga, dan harta suami</td></tr>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /pb-body -->
+  </div><!-- /pembahasan-panel -->
+</div><!-- /pembahasan-overlay -->
 
 <script>
 // ─── DATA SOAL ───
@@ -811,14 +1289,14 @@ const SOAL = [
   { no:27, bab:"Munakahat", soal:"Perhatikan narasi berikut!", narasi:"Pada sebuah prosesi pernikahan, hadir calon suami, calon istri, ayah sebagai wali, dua orang saksi laki-laki yang adil, serta diucapkannya ijab qabul.", stem:"Berdasarkan narasi tersebut, rukun nikah yang terpenuhi adalah...", opsi:["Calon suami, calon istri, dan ijab qabul saja","Calon suami, calon istri, wali, dua saksi, dan ijab qabul","Calon suami, wali, dan dua saksi saja","Ijab qabul dan dua saksi saja","Wali, dua saksi, dan mahar saja"], kunci:"B" },
   { no:28, bab:"Munakahat", soal:"Perhatikan narasi berikut!", narasi:"Seorang pemuda bernama Dani sangat ingin menikah. Ia sudah memiliki pekerjaan tetap dan mampu secara finansial. Namun, ia merasa tidak terlalu khawatir terjerumus dalam kemaksiatan karena imannya cukup kuat.", stem:"Berdasarkan kondisi tersebut, hukum pernikahan bagi Dani adalah...", opsi:["Wajib karena sudah mampu secara finansial","Haram karena masih muda","Sunnah karena sudah mampu namun tidak khawatir terjerumus maksiat","Makruh karena belum siap mental","Mubah karena kondisinya tidak jelas"], kunci:"C" },
   { no:29, bab:"Munakahat", soal:"Perhatikan pernyataan berikut!", narasi:"Seorang suami wajib memberikan nafkah, pakaian, dan tempat tinggal kepada istrinya. Di sisi lain, istri berhak mendapatkan perlakuan yang baik dan bimbingan agama dari suaminya.", stem:"Berdasarkan narasi tersebut, hubungan hak dan kewajiban suami istri yang tepat adalah...", opsi:["Kewajiban istri lebih banyak daripada suami","Kewajiban suami memberikan nafkah sekaligus menjadi hak yang harus diterima istri","Suami tidak memiliki kewajiban selain memberi mahar","Istri tidak memiliki hak apapun atas suaminya","Hak dan kewajiban hanya berlaku bagi istri saja"], kunci:"B" },
-  { no:30, bab:"Bacaan Shalat", soal:"Perhatikan bacaan ruku' berikut:", narasi:'"Subhaana rabbiyal \'azhiimi wa bihamdih"', stem:"Terjemahan yang tepat dari bacaan ruku' tersebut adalah...", opsi:["Maha Suci Tuhanku Yang Maha Tinggi dan segala puji bagi-Nya","Maha Suci Tuhanku Yang Maha Agung dan segala puji bagi-Nya","Maha Besar Tuhanku Yang Maha Kuasa","Maha Suci Allah yang menciptakan langit dan bumi","Segala puji bagi Allah Tuhan semesta alam"], kunci:"B" },
-  { no:31, bab:"Bacaan Shalat", soal:"Perhatikan terjemahan Surah Al-Fatihah berikut:", narasi:'"Iyyaaka na\'budu wa iyyaaka nasta\'iin"', stem:"Terjemahan yang tepat dari ayat Al-Fatihah tersebut adalah...", opsi:["Segala puji bagi Allah Tuhan seluruh alam","Tunjukilah kami jalan yang lurus","Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan","Pemilik hari pembalasan","Yang Maha Pengasih lagi Maha Penyayang"], kunci:"C" },
-  { no:32, bab:"Thaharah", soal:"Perhatikan bacaan niat berikut:", narasi:'"Nawaitul wudhuu-a liraf\'il hadatsil ashghari fardhal lillaahi ta\'aalaa"', stem:"Bacaan niat tersebut merupakan niat untuk...", opsi:["Niat mandi wajib","Niat tayammum","Niat wudhu untuk menghilangkan hadats kecil karena Allah","Niat shalat fardhu","Niat puasa Ramadan"], kunci:"C" },
-  { no:33, bab:"Shalat Fardhu", soal:'Dalam sebuah hadits disebutkan: "Shalat adalah tiang agama. Barangsiapa mendirikannya maka ia telah menegakkan agama, dan barangsiapa meninggalkannya maka ia telah meruntuhkan agama."', stem:"Makna yang paling tepat dari hadits tersebut adalah...", opsi:["Shalat hanyalah ritual biasa yang bisa ditinggalkan","Shalat merupakan ibadah paling utama yang menopang tegaknya agama Islam pada diri seorang muslim","Shalat hanya wajib bagi orang dewasa yang sehat","Meninggalkan shalat tidak memiliki konsekuensi apapun","Shalat boleh diganti dengan ibadah lain yang setara"], kunci:"B" },
+  { no:30, bab:"Bacaan Shalat", soal:"Perhatikan bacaan ruku' berikut:", narasi:"\"Subhaana rabbiyal 'azhiimi wa bihamdih\"", stem:"Terjemahan yang tepat dari bacaan ruku' tersebut adalah...", opsi:["Maha Suci Tuhanku Yang Maha Tinggi dan segala puji bagi-Nya","Maha Suci Tuhanku Yang Maha Agung dan segala puji bagi-Nya","Maha Besar Tuhanku Yang Maha Kuasa","Maha Suci Allah yang menciptakan langit dan bumi","Segala puji bagi Allah Tuhan semesta alam"], kunci:"B" },
+  { no:31, bab:"Bacaan Shalat", soal:"Perhatikan terjemahan Surah Al-Fatihah berikut:", narasi:"\"Iyyaaka na'budu wa iyyaaka nasta'iin\"", stem:"Terjemahan yang tepat dari ayat Al-Fatihah tersebut adalah...", opsi:["Segala puji bagi Allah Tuhan seluruh alam","Tunjukilah kami jalan yang lurus","Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan","Pemilik hari pembalasan","Yang Maha Pengasih lagi Maha Penyayang"], kunci:"C" },
+  { no:32, bab:"Thaharah", soal:"Perhatikan bacaan niat berikut:", narasi:"\"Nawaitul wudhuu-a liraf'il hadatsil ashghari fardhal lillaahi ta'aalaa\"", stem:"Bacaan niat tersebut merupakan niat untuk...", opsi:["Niat mandi wajib","Niat tayammum","Niat wudhu untuk menghilangkan hadats kecil karena Allah","Niat shalat fardhu","Niat puasa Ramadan"], kunci:"C" },
+  { no:33, bab:"Shalat Fardhu", soal:"Dalam sebuah hadits disebutkan: \"Shalat adalah tiang agama. Barangsiapa mendirikannya maka ia telah menegakkan agama, dan barangsiapa meninggalkannya maka ia telah meruntuhkan agama.\"", stem:"Makna yang paling tepat dari hadits tersebut adalah...", opsi:["Shalat hanyalah ritual biasa yang bisa ditinggalkan","Shalat merupakan ibadah paling utama yang menopang tegaknya agama Islam pada diri seorang muslim","Shalat hanya wajib bagi orang dewasa yang sehat","Meninggalkan shalat tidak memiliki konsekuensi apapun","Shalat boleh diganti dengan ibadah lain yang setara"], kunci:"B" },
   { no:34, bab:"Gerakan Shalat", soal:"Perhatikan deskripsi gerakan berikut!", narasi:"Seorang mushalli berdiri tegak menghadap kiblat, lalu mengangkat kedua tangan sejajar telinga (bagi laki-laki) atau sejajar bahu (bagi perempuan), jari-jari tangan terbuka dan rapat menghadap kiblat, kemudian mengucapkan \"Allahu Akbar\".", stem:"Gerakan yang dideskripsikan tersebut adalah gerakan...", opsi:["Ruku'","Sujud","Takbiratul Ihram","I'tidal","Duduk tasyahud"], kunci:"C" },
   { no:35, bab:"Gerakan Shalat", soal:"Perhatikan deskripsi gerakan shalat berikut!", narasi:"Seorang mushalli membungkukkan badan hingga punggung rata/lurus sejajar lantai, kepala tidak mendongak dan tidak menunduk (sejajar punggung), kedua tangan memegang lutut dengan jari terbuka, dan pandangan mengarah ke tempat sujud.", stem:"Gerakan yang dideskripsikan tersebut adalah gerakan...", opsi:["Sujud","I'tidal","Ruku'","Takbiratul Ihram","Duduk di antara dua sujud"], kunci:"C" },
   { no:36, bab:"Gerakan Shalat", soal:"Perhatikan deskripsi gerakan shalat berikut!", narasi:"Tujuh anggota tubuh menempel lantai yaitu: dahi beserta hidung, dua telapak tangan, dua lutut, dan ujung jari kedua kaki. Dahi dan hidung harus menempel sempurna. Lengan tidak menempel lantai (terangkat). Perut tidak menempel paha.", stem:"Gerakan yang dideskripsikan tersebut adalah gerakan...", opsi:["Ruku'","I'tidal","Takbiratul Ihram","Sujud","Duduk tasyahud akhir"], kunci:"D" },
-  { no:37, bab:"Thaharah", soal:"Perhatikan bacaan niat berikut:", narasi:'"Nawaitul ghusla liraf\'il hadatsil akbari fardhal lillaahi ta\'aalaa"', stem:"Bacaan niat tersebut merupakan niat untuk...", opsi:["Niat wudhu biasa","Niat tayammum","Niat shalat fardhu","Niat mandi wajib untuk menghilangkan hadats besar karena Allah","Niat puasa sunnah"], kunci:"D" },
+  { no:37, bab:"Thaharah", soal:"Perhatikan bacaan niat berikut:", narasi:"\"Nawaitul ghusla liraf'il hadatsil akbari fardhal lillaahi ta'aalaa\"", stem:"Bacaan niat tersebut merupakan niat untuk...", opsi:["Niat wudhu biasa","Niat tayammum","Niat shalat fardhu","Niat mandi wajib untuk menghilangkan hadats besar karena Allah","Niat puasa sunnah"], kunci:"D" },
   { no:38, bab:"Syarat Shalat", soal:"Perhatikan poin-poin berikut!", narasi:"1. Beragama Islam\n2. Baligh\n3. Berakal sehat\n4. Menghadap kiblat\n5. Menutup aurat\n6. Tidak sedang haid/nifas\n7. Suci dari hadats", stem:"Dari poin-poin di atas, yang termasuk SYARAT WAJIB shalat (bukan syarat sah) adalah...", opsi:["1, 2, 3, dan 6","4, 5, dan 7","1, 4, 5, dan 7","2, 3, dan 6 saja","Semua poin adalah syarat wajib"], kunci:"A" },
   { no:39, bab:"Rukun Shalat", soal:"Perhatikan pilihan berikut!", narasi:"A. Niat\nB. Membaca Al-Fatihah\nC. Memiliki wudhu\nD. Ruku'\nE. Tuma'ninah\nF. Menghadap kiblat\nG. Salam\nH. Menutup aurat", stem:"Dari pilihan di atas, yang termasuk RUKUN SHALAT adalah...", opsi:["A, B, C, D, dan E","A, B, D, E, dan G","C, F, dan H","B, C, F, dan H","A, C, F, dan H"], kunci:"B" },
   { no:40, bab:"Najis & Thaharah", soal:"Perhatikan narasi berikut!", narasi:"Seorang anak laki-laki berusia 6 bulan yang masih minum ASI dan belum mengonsumsi makanan lain, terkena najis air kencingnya sendiri mengenai bajunya.", stem:"Berdasarkan kasus tersebut, najis tersebut termasuk jenis najis apa dan bagaimana cara mensucikannya?", opsi:["Najis Mughallazhah, dicuci 7 kali dengan salah satunya dicampur tanah","Najis Mutawassitah, dicuci hingga hilang warna, bau, dan rasanya","Najis Mukhaffafah, cukup dipercikkan air pada bagian yang terkena najis","Najis Mughallazhah, cukup dicuci sekali dengan air bersih","Najis Mutawassitah, cukup dipercikkan air saja"], kunci:"C" }
@@ -834,13 +1312,6 @@ function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/
 function renderQuiz(){
   const main = document.getElementById('quizMain');
   main.innerHTML = '';
-
-  // Group by bab categories
-  const categories = {};
-  SOAL.forEach(s => {
-    if (!categories[s.bab]) categories[s.bab] = [];
-    categories[s.bab].push(s);
-  });
 
   SOAL.forEach((s, idx) => {
     const narasiLines = s.narasi ? s.narasi.split('\n').filter(l=>l.trim()) : [];
@@ -949,7 +1420,6 @@ function showResult(){
   document.getElementById('stKosong').textContent = kosong;
   document.getElementById('mScore').textContent = nilai;
 
-  // Grade
   let grade, gradeClass, ornament, title, subtitle;
   if(nilai>=90){grade='Mumtaz — Sangat Baik';gradeClass='mumtaz';ornament='🏆';title='Luar Biasa!';subtitle='Pencapaian luar biasa. Penguasaan materi Anda sangat memuaskan.';}
   else if(nilai>=80){grade='Jayyid Jiddan — Baik Sekali';gradeClass='jayyid-jiddan';ornament='⭐';title='Bagus Sekali!';subtitle='Hasil yang sangat baik. Sedikit lagi untuk sempurna!';}
@@ -963,7 +1433,6 @@ function showResult(){
   document.getElementById('mTitle').textContent = title;
   document.getElementById('mSubtitle').textContent = subtitle;
 
-  // BG effect per grade
   const bg = document.getElementById('modalBg');
   if(nilai>=80){
     bg.style.background='radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%)';
@@ -973,14 +1442,12 @@ function showResult(){
     bg.style.background='radial-gradient(ellipse 80% 60% at 50% 0%, rgba(192,57,43,0.08) 0%, transparent 70%)';
   }
 
-  // Evaluate per topic
   buildEval(benar, salah, kosong, nilai);
   document.getElementById('modalOverlay').classList.add('active');
 }
 
 // ─── EVALUASI MATERI ───
 function buildEval(benar, salah, kosong, nilai){
-  // Group wrong/missing by bab
   const topicStats = {};
   SOAL.forEach(s => {
     if(!topicStats[s.bab]) topicStats[s.bab] = { total:0, benar:0, wrong:[], kosong:[] };
@@ -994,7 +1461,6 @@ function buildEval(benar, salah, kosong, nilai){
   const container = document.getElementById('evalItems');
   container.innerHTML = '';
 
-  // Sort: worst first
   const sorted = Object.entries(topicStats).map(([bab, stat]) => {
     const pct = stat.total > 0 ? Math.round((stat.benar/stat.total)*100) : 0;
     return { bab, ...stat, pct };
@@ -1007,7 +1473,6 @@ function buildEval(benar, salah, kosong, nilai){
     return;
   }
 
-  // Topic descriptions
   const topicDesc = {
     "Ibadah Sunnah": "Memahami definisi, jenis, dan contoh ibadah sunnah",
     "Sunnah Nabi": "Memahami macam-macam sunnah: qawliyah, fi'liyyah, taqririyyah",
@@ -1034,10 +1499,6 @@ function buildEval(benar, salah, kosong, nilai){
   };
 
   problemTopics.forEach(t => {
-    const wrong = t.wrong.length;
-    const kosong = t.kosong.length;
-    const missed = wrong + kosong;
-
     let status, iconClass, iconEmoji, badgeClass;
     if(t.pct === 0){ status='Belum dikuasai'; iconClass='red'; iconEmoji='✗'; badgeClass='bad'; }
     else if(t.pct < 50){ status='Perlu perhatian lebih'; iconClass='red'; iconEmoji='!'; badgeClass='bad'; }
@@ -1053,14 +1514,13 @@ function buildEval(benar, salah, kosong, nilai){
       <div class="eval-icon ${iconClass}">${iconEmoji}</div>
       <div class="eval-content">
         <div class="eval-topic">${esc(t.bab)}</div>
-        <div class="eval-desc">${esc(desc)} &mdash; ${esc(status)}</div>
+        <div class="eval-desc">${esc(desc)} — ${esc(status)}</div>
       </div>
       <div class="eval-score-badge ${badgeClass}">${scoreLabel} benar</div>
     `;
     container.appendChild(el);
   });
 
-  // Summary advice
   const veryWeak = problemTopics.filter(t => t.pct < 50);
   if(veryWeak.length > 0){
     const advice = document.createElement('div');
@@ -1084,9 +1544,126 @@ function retryQuiz(){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+// ─── PEMBAHASAN ───
+const PEMBAHASAN = {
+  1:  { jawaban:"C — Amalan yang jika dikerjakan mendapat pahala, namun tidak berdosa jika ditinggalkan", penjelasan:"Ibadah sunnah memiliki ciri khas: ada pahala jika dikerjakan, tetapi <strong>tidak ada dosa</strong> jika ditinggalkan. Ini berbeda dengan ibadah wajib yang berdosa bila ditinggalkan. Contoh dalam narasi: Ahmad tidak berdosa ketika melewatkan tahajud karena kelelahan — itulah bukti statusnya sebagai sunnah." },
+  2:  { jawaban:"B — Sunnah Fi'liyyah", penjelasan:"<strong>Sunnah Fi'liyyah</strong> adalah segala perbuatan/tindakan Nabi SAW yang diriwayatkan para sahabat dan dijadikan dasar hukum. Dalam narasi, Rasulullah SAW <em>melakukan</em> (bukan mengucapkan atau mendiamkan) cara shalat di atas kendaraan — itu perbuatan, sehingga termasuk fi'liyyah." },
+  3:  { jawaban:"C — Sunnah Taqririyyah", penjelasan:"<strong>Sunnah Taqririyyah</strong> adalah sikap diam Nabi SAW terhadap perbuatan sahabat sebagai bentuk persetujuan dan dukungan. Kunci membedakannya: Nabi tidak melarang dan tidak memerintahkan — hanya diam tanda setuju." },
+  4:  { jawaban:"B — 1, 2, dan 4 (Shalat rawatib, tahajud, dhuha)", penjelasan:"<strong>Sunnah Muakadah</strong> adalah amalan yang selalu dikerjakan Rasulullah dan tidak pernah ditinggalkan. Shalat rawatib, tahajud, dan dhuha masuk kategori ini. Sedangkan <em>shalat qabliyyah isya</em> (no.3) dan <em>puasa Senin-Kamis</em> (no.5) adalah Sunnah Ghairu Muakadah karena kadang ditinggalkan Nabi." },
+  5:  { jawaban:"C — Sunnah Ghairu Muakadah", penjelasan:"Puasa Senin-Kamis termasuk <strong>Sunnah Ghairu Muakadah</strong> karena Nabi kadang mengerjakannya dan kadang meninggalkannya. Indikator dalam soal: Budi kadang melewatkannya saat ujian — itu mencerminkan sifat ibadah ini." },
+  6:  { jawaban:"B — Wudhu menghapus dosa-dosa kecil yang mengalir bersama tetesan air", penjelasan:"Berdasarkan <strong>HR. Muslim no. 244</strong>: ketika membasuh wajah, tangan, kepala, dan kaki saat wudhu, dosa-dosa kecil ikut keluar bersama tetesan air. Inilah keutamaan terbesar yang digambarkan dalam narasi — seseorang merasa dosa 'luruh' bersama air wudhunya." },
+  7:  { jawaban:"B — Bercahaya pada anggota wudhu di hari kiamat", penjelasan:"<strong>HR. Bukhari no. 136 &amp; Muslim no. 246</strong>: Umat Nabi SAW akan dipanggil pada hari kiamat dalam keadaan bercahaya (<em>ghurran muhajallin</em>) pada bekas-bekas anggota wudhunya. Ini adalah keutamaan yang sangat mulia." },
+  8:  { jawaban:"B — Wudhu merupakan bentuk pensucian diri yang dicintai Allah (QS. Al-Baqarah: 222)", penjelasan:"<strong>QS. Al-Baqarah: 222</strong> menyatakan Allah mencintai orang yang bertaubat dan mensucikan diri. Para ulama menjelaskan bahwa menjaga wudhu adalah salah satu bentuk taharah (pensucian) yang paling dianjurkan dan dicintai Allah." },
+  9:  { jawaban:"B — Malaikat mendoakan ampunan bagi orang yang tidur dalam keadaan berwudhu", penjelasan:"<strong>HR. Ibnu Hibban no. 1051</strong>: Barangsiapa tidur dalam keadaan suci (berwudhu), malaikat akan tinggal bersamanya dan mendoakan ampunan sepanjang malam. Ini adalah hikmah spiritual yang luar biasa dari menjaga wudhu sebelum tidur." },
+  10: { jawaban:"B — Rizky mendapat penghapusan dosa dan peninggian derajat di sisi Allah", penjelasan:"<strong>HR. Muslim no. 251</strong> menyebutkan tiga amalan: menyempurnakan wudhu di waktu sulit, memperbanyak langkah ke masjid, dan menunggu shalat setelah shalat — ketiganya menghapus dosa dan meninggikan derajat. Itulah hikmah terbesar dari kebiasaan Rizky." },
+  11: { jawaban:"B — Setelah matahari terbit setinggi tombak hingga sebelum masuk waktu zuhur", penjelasan:"Waktu shalat dhuha dimulai sejak matahari naik setinggi tombak (sekitar 15-20 menit setelah terbit) hingga menjelang waktu zuhur. Waktu ini dikenal sebagai waktu dhuha, dan QS. Adh-Dhuha: 1-2 menyebutkan kemuliaan waktu tersebut." },
+  12: { jawaban:"A — Mendapat kecukupan rezeki dari Allah di akhir hari", penjelasan:"<strong>HR. Ahmad &amp; Tirmidzi no. 475</strong>: 'Barangsiapa mengerjakan empat rakaat di awal siang (dhuha), niscaya Allah akan mencukupkan kebutuhannya di akhir hari.' Ini adalah janji Allah tentang jaminan rezeki bagi yang istiqamah shalat dhuha." },
+  13: { jawaban:"D — 8 rakaat", penjelasan:"Berdasarkan <strong>HR. Thabrani</strong>, tingkatan keutamaan shalat dhuha: 2 rakaat (dicukupi kebutuhan), 6 rakaat (dicukupi dan diselamatkan), <strong>8 rakaat (ditulis sebagai ahli ibadah/orang taat)</strong>, 12 rakaat (dibangunkan rumah di surga)." },
+  14: { jawaban:"B — Waktu dhuha dimuliakan Allah hingga Ia bersumpah atasnya dalam Al-Qur'an", penjelasan:"<strong>QS. Adh-Dhuha ayat 1-2</strong>: Allah bersumpah 'Demi waktu dhuha' dan 'Demi malam apabila telah sunyi.' Dalam tradisi Arab dan tafsir Islam, ketika Allah bersumpah atas sesuatu, itu menandakan kemuliaan dan keutamaan yang sangat tinggi dari hal tersebut." },
+  15: { jawaban:"B — Perilaku Siswa A yang menyampaikan kebenaran meski merugikan dirinya", penjelasan:"<strong>Kejujuran (shiddiq)</strong> dalam Islam berarti menyampaikan kebenaran bahkan saat itu merugikan diri sendiri. Siswa A mencerminkan sifat ini dengan sempurna. Hadits Nabi: 'Hendaklah kalian berlaku jujur, karena kejujuran membawa kepada kebaikan.' (HR. Bukhari)" },
+  16: { jawaban:"A — Keberanian membela kebenaran meski menghadapi risiko", penjelasan:"<strong>Syaja'ah</strong> (شجاعة) adalah keberanian yang dilandasi kebenaran dan prinsip. Bukan sekadar berani, tapi berani untuk hal yang benar. Siswa yang membela teman meski takut — itulah syaja'ah. Berbeda dengan nekad atau gegabah tanpa dasar." },
+  17: { jawaban:"C — Mendengarkan, membantu, tidak membantah, dan mendoakan orang tua", penjelasan:"<strong>Birrul Walidain</strong> (berbakti kepada orang tua) mencakup empat aspek yang disebutkan dalam soal. QS. Al-Isra': 23 memerintahkan berbuat baik kepada kedua orang tua. Catatan penting: ketaatan kepada orang tua tidak berlaku jika mereka memerintahkan kemaksiatan (jawaban B salah)." },
+  18: { jawaban:"B — Kerja keras dan tanggung jawab dalam menuntut ilmu", penjelasan:"Perilaku Hasan mencerminkan dua sifat mulia: <strong>kerja keras (jidd wa ijtihad)</strong> dan <strong>tanggung jawab (amanah)</strong>. Dalam Islam, menuntut ilmu adalah kewajiban, dan bersungguh-sungguh dalam belajar adalah bentuk ibadah." },
+  19: { jawaban:"B — Bekerja dengan sungguh-sungguh dan halal sambil bertawakal kepada Allah", penjelasan:"Islam mengajarkan keseimbangan: <strong>ikhtiar (usaha sungguh-sungguh) + tawakal (pasrah kepada Allah)</strong>. Hadits Nabi: 'Tidak ada makanan yang lebih baik dari hasil kerja tangannya sendiri.' Halal dan bertawakal adalah kunci agar pekerjaan bernilai ibadah." },
+  20: { jawaban:"C — Kerja keras, tanggung jawab, kejujuran, dan kedermawanan adalah kunci kesuksesan hakiki", penjelasan:"Tokoh tersebut mencontohkan nilai-nilai akhlak mulia yang komprehensif: tidak menyerah (kerja keras), menepati janji (tanggung jawab &amp; kejujuran), dan berzakat/sedekah (kedermawanan). Inilah konsep <strong>falah</strong> dalam Islam — kesuksesan dunia dan akhirat." },
+  21: { jawaban:"B — Sungguh kuhadapkan wajahku kepada Dzat yang menciptakan langit dan bumi", penjelasan:"Penggalan doa iftitah <em>'Inni wajjahtu wajhiya...'</em> artinya: <strong>'Sungguh kuhadapkan wajahku kepada Dzat yang menciptakan langit dan bumi, dengan penuh ketulusan dan kepasrahan, dan aku bukan termasuk orang-orang musyrik.'</strong> Ingat: ini berbeda dengan penggalan 'Inna shalaatii...' yang artinya 'shalatku, ibadahku, hidupku dan matiku...'" },
+  22: { jawaban:"B — Perempuan 5 lapis, laki-laki 3 lapis", penjelasan:"Ketentuan kain kafan berdasarkan fiqih: <strong>Laki-laki: 3 lapis</strong> kain kafan putih. <strong>Perempuan: 5 lapis</strong> (karena perempuan memiliki aurat yang lebih luas). Cara mudah mengingat: perempuan lebih banyak lapisannya." },
+  23: { jawaban:"C — Mahram seperti istri atau anak laki-lakinya", penjelasan:"Berdasarkan fiqih jenazah: jenazah laki-laki dewasa paling berhak dimandikan oleh <strong>mahramnya</strong> — yaitu istri, anak laki-laki, atau mahram laki-laki lainnya. Prioritas utama adalah keluarga terdekat yang mahram, bukan tokoh masyarakat atau tetangga." },
+  24: { jawaban:"B — Kewajiban kolektif; jika sudah ada yang melaksanakan maka gugur bagi yang lain", penjelasan:"<strong>Fardhu Kifayah</strong> (فرض كفاية) adalah kewajiban kolektif yang dibebankan kepada suatu komunitas Muslim. Jika sudah ada yang melaksanakannya, kewajiban gugur bagi yang lain. Namun jika tidak ada satu pun yang melakukannya, <em>seluruh masyarakat menanggung dosa</em>." },
+  25: { jawaban:"B — Memandikan → Mengkafani → Menshalatkan → Menguburkan", penjelasan:"Urutan pengurusan jenazah sesuai syariat Islam adalah: (1) <strong>Memandikan</strong>, (2) <strong>Mengkafani</strong>, (3) <strong>Menshalatkan</strong>, (4) <strong>Menguburkan</strong>. Urutan ini tidak boleh dibalik. Cara mudah mengingat: M-M-S-M atau 'Mandi dulu, baru Kafan, Shalat, Makam.'" },
+  26: { jawaban:"B — Untuk menghindari kemaksiatan dan menjaga kehormatan diri", penjelasan:"Hadits yang dikutip dari HR. Bukhari &amp; Muslim menegaskan dua tujuan utama pernikahan: <strong>menundukkan pandangan</strong> (menjaga mata dari hal haram) dan <strong>memelihara kemaluan</strong> (menjaga diri dari zina). Ini adalah tujuan primer yang bersifat perlindungan diri." },
+  27: { jawaban:"B — Calon suami, calon istri, wali, dua saksi, dan ijab qabul", penjelasan:"<strong>5 Rukun Nikah</strong> semuanya terpenuhi dalam narasi: calon suami ✓, calon istri ✓, ayah sebagai wali ✓, dua saksi laki-laki yang adil ✓, ijab qabul ✓. Mahar bukan rukun melainkan kewajiban (wajib diberikan tapi bukan syarat sahnya akad)." },
+  28: { jawaban:"C — Sunnah karena sudah mampu namun tidak khawatir terjerumus maksiat", penjelasan:"Berdasarkan hukum pernikahan dalam Islam: jika seseorang <strong>sudah mampu</strong> (fisik, mental, ekonomi) tetapi <strong>tidak khawatir terjerumus kemaksiatan</strong>, maka hukumnya <strong>Sunnah</strong>. Hukum berubah menjadi Wajib jika ia khawatir terjerumus zina jika tidak menikah." },
+  29: { jawaban:"B — Kewajiban suami memberi nafkah sekaligus menjadi hak yang harus diterima istri", penjelasan:"Dalam Islam, <strong>kewajiban suami = hak istri</strong> dan sebaliknya. Kewajiban suami memberi nafkah, pakaian, dan tempat tinggal secara otomatis menjadi hak istri yang harus dipenuhi. Hubungan ini bersifat timbal balik dan saling melengkapi." },
+  30: { jawaban:"B — Maha Suci Tuhanku Yang Maha Agung dan segala puji bagi-Nya", penjelasan:"Bacaan ruku': <em>'Subhaana rabbiyal 'azhiimi wa bihamdih'</em> = <strong>'Maha Suci Tuhanku Yang Maha <u>Agung</u> dan segala puji bagi-Nya.'</strong> Jangan tertukar dengan bacaan sujud: <em>'Subhaana rabbiyal a'laa'</em> = 'Maha Suci Tuhanku Yang Maha <u>Tinggi</u>.' Ruku = Agung (Azhim), Sujud = Tinggi (A'laa)." },
+  31: { jawaban:"C — Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan", penjelasan:"<em>'Iyyaaka na'budu wa iyyaaka nasta'iin'</em> adalah ayat ke-4 (ayat ke-5 termasuk Bismillah) dari Surah Al-Fatihah. Artinya: <strong>'Hanya kepada Engkaulah kami menyembah (<em>na'budu</em>) dan hanya kepada Engkaulah kami memohon pertolongan (<em>nasta'iin</em>).'</strong> Ayat ini adalah inti dari tauhid." },
+  32: { jawaban:"C — Niat wudhu untuk menghilangkan hadats kecil karena Allah", penjelasan:"Bacaan: <em>'Nawaitul wudhuu-a liraf'il hadatsil ashghari fardhal lillaahi ta'aalaa'</em> = <strong>Niat wudhu untuk menghilangkan hadats <u>kecil</u> (ashghar) karena Allah.</strong> Bedakan dengan niat mandi wajib yang menggunakan kata <em>'ghusla'</em> dan <em>'akbari'</em> (hadats besar)." },
+  33: { jawaban:"B — Shalat merupakan ibadah paling utama yang menopang tegaknya agama", penjelasan:"<strong>HR. Baihaqi</strong>: 'Shalat adalah tiang agama (<em>imaduddin</em>).' Makna metafora ini: seperti tiang yang menopang bangunan, shalat menopang keislaman seseorang. Meninggalkannya berarti 'meruntuhkan' agama dalam diri sendiri — bukan agama Islam secara umum." },
+  34: { jawaban:"C — Takbiratul Ihram", penjelasan:"Ciri khas <strong>Takbiratul Ihram</strong>: berdiri tegak, mengangkat kedua tangan (sejajar telinga untuk laki-laki / sejajar bahu untuk perempuan), jari terbuka dan rapat menghadap kiblat, lalu mengucapkan 'Allahu Akbar'. Ini adalah gerakan pembuka shalat yang menandai masuknya seseorang ke dalam shalat." },
+  35: { jawaban:"C — Ruku'", penjelasan:"Ciri khas <strong>Ruku'</strong>: punggung rata/lurus sejajar lantai (bukan membungkuk setengah), kepala tidak mendongak dan tidak menunduk (sejajar punggung), kedua tangan memegang lutut dengan jari terbuka, pandangan ke tempat sujud. Punggung rata adalah kunci kesempurnaan ruku'." },
+  36: { jawaban:"D — Sujud", penjelasan:"Ciri khas <strong>Sujud</strong>: 7 anggota menempel lantai — dahi+hidung (1), telapak tangan kanan (2), telapak tangan kiri (3), lutut kanan (4), lutut kiri (5), ujung jari kaki kanan (6), ujung jari kaki kiri (7). Lengan TIDAK menempel lantai (terangkat), perut TIDAK menempel paha." },
+  37: { jawaban:"D — Niat mandi wajib untuk menghilangkan hadats besar karena Allah", penjelasan:"Bacaan: <em>'Nawaitul ghusla liraf'il hadatsil akbari fardhal lillaahi ta'aalaa'</em> = <strong>Niat mandi wajib (<em>ghusla</em>) untuk menghilangkan hadats <u>besar</u> (<em>akbari</em>) karena Allah.</strong> Kata kunci pembeda: <em>ghusla</em> (mandi) vs <em>wudhuu-a</em> (wudhu), dan <em>akbari</em> (besar) vs <em>ashghari</em> (kecil)." },
+  38: { jawaban:"A — 1, 2, 3, dan 6 (Islam, Baligh, Berakal, Tidak haid/nifas)", penjelasan:"<strong>Syarat Wajib Shalat</strong> = kondisi yang membuat shalat itu wajib dilakukan: Islam, Baligh, Berakal sehat, Tidak sedang haid/nifas, Mendengar dakwah. Sedangkan Menghadap kiblat, Menutup aurat, dan Suci dari hadats adalah <strong>Syarat Sah</strong> — kondisi agar shalat sah secara hukum." },
+  39: { jawaban:"B — A, B, D, E, dan G (Niat, Al-Fatihah, Ruku', Tuma'ninah, Salam)", penjelasan:"<strong>Rukun Shalat</strong> adalah hal-hal yang harus ada agar shalat sah dan tidak bisa diganti dengan sujud sahwi. Yang termasuk rukun: Niat (A), Membaca Al-Fatihah (B), Ruku' (D), Tuma'ninah (E), dan Salam (G). Sedangkan Memiliki wudhu (C), Menghadap kiblat (F), dan Menutup aurat (H) adalah <em>Syarat Sah</em> shalat." },
+  40: { jawaban:"C — Najis Mukhaffafah, cukup dipercikkan air", penjelasan:"Air kencing bayi laki-laki yang <strong>belum mengonsumsi makanan selain ASI</strong> termasuk <strong>Najis Mukhaffafah (ringan)</strong>. Cara mensucikannya cukup dengan <strong>memercikkan/membasahi air</strong> pada bagian yang terkena najis — tidak perlu digosok atau dicuci berulang. Ini berbeda jika bayi sudah makan makanan lain, maka statusnya berubah menjadi Najis Mutawassitah." }
+};
+
+function openPembahasan(){
+  closeModal();
+  renderPembahasanSoal();
+  document.getElementById('pembahasanOverlay').classList.add('active');
+}
+
+function closePembahasan(){
+  document.getElementById('pembahasanOverlay').classList.remove('active');
+}
+
+function switchTab(id){
+  document.querySelectorAll('.pb-tab').forEach((t,i) => {
+    const tabs = ['soal','ibadah','wudhu','shalat','jenazah','nikah'];
+    t.classList.toggle('active', tabs[i] === id);
+  });
+  document.querySelectorAll('.pb-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+function togglePbCard(no){
+  const card = document.getElementById('pbc-'+no);
+  card.classList.toggle('open');
+}
+
+function renderPembahasanSoal(){
+  const container = document.getElementById('pembahasanSoalList');
+  if(container.children.length > 0) return;
+
+  const groups = {};
+  SOAL.forEach(s => {
+    if(!groups[s.bab]) groups[s.bab] = [];
+    groups[s.bab].push(s);
+  });
+
+  Object.entries(groups).forEach(([bab, soals]) => {
+    const divider = document.createElement('div');
+    divider.className = 'pb-bab-title';
+    divider.textContent = bab;
+    container.appendChild(divider);
+
+    soals.forEach(s => {
+      const pb = PEMBAHASAN[s.no];
+      const ua = answers[s.no];
+      let statusDot = '';
+      if(submitted){
+        if(!ua) statusDot = '<span style="color:var(--text3);font-size:10px;margin-left:6px;">— Kosong</span>';
+        else if(ua === s.kunci) statusDot = '<span style="color:var(--green3);font-size:10px;margin-left:6px;">✓ Benar</span>';
+        else statusDot = '<span style="color:var(--red2);font-size:10px;margin-left:6px;">✗ Salah</span>';
+      }
+
+      const card = document.createElement('div');
+      card.className = 'pb-q-card';
+      card.id = 'pbc-'+s.no;
+      card.innerHTML = `
+        <div class="pb-q-head" onclick="togglePbCard(${s.no})">
+          <span class="pb-q-num">${String(s.no).padStart(2,'0')}</span>
+          <span class="pb-q-text">${esc(s.stem)}${statusDot}</span>
+          <span class="pb-q-arrow">›</span>
+        </div>
+        <div class="pb-q-body">
+          <div class="pb-answer-row">
+            <span class="pb-kunci-badge">Kunci: ${s.kunci}</span>
+            <span class="pb-answer-text">${pb ? pb.jawaban : ''}</span>
+          </div>
+          <div class="pb-penjelasan">${pb ? pb.penjelasan : 'Pembahasan tidak tersedia.'}</div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  });
+}
+
 // Init
 renderQuiz();
 updateProgress();
 </script>
+
 </body>
 </html>
