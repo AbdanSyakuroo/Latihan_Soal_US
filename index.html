@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan Soal PAI — SMK Informatika Pesat</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f0e;
+  --surface: #141714;
+  --surface2: #1c201c;
+  --surface3: #222722;
+  --border: #2a302a;
+  --border2: #353d35;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --gold3: #7a5e20;
+  --green: #2d6a4f;
+  --green2: #40916c;
+  --green3: #52b788;
+  --red: #c0392b;
+  --red2: #e74c3c;
+  --text: #e8ede8;
+  --text2: #9ba89b;
+  --text3: #5a685a;
+  --white: #f4f7f4;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── HERO HEADER ─── */
+.hero {
+  position: relative;
+  padding: 72px 24px 56px;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(45,106,79,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 30% at 80% 70%, rgba(45,106,79,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 100%);
+}
+.hero-inner {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--gold2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+.hero-eyebrow::before { content: '◆'; font-size: 7px; }
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 7vw, 64px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold2);
+}
+.hero-sub {
+  font-size: 15px;
+  color: var(--text2);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  margin-bottom: 36px;
+}
+.hero-stats {
+  display: inline-flex;
+  gap: 0;
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.hero-stat {
+  padding: 14px 28px;
+  text-align: center;
+  border-right: 1px solid var(--border2);
+  font-family: 'DM Mono', monospace;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-val {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold2);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-lbl {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─── PROGRESS BAR ─── */
+.sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(13,15,14,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.sticky-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.prog-track {
+  flex: 1;
+  height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green2), var(--gold));
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+.prog-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+}
+.prog-text strong { color: var(--gold2); }
+
+/* ─── MAIN ─── */
+main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+}
+
+/* ─── SECTION HEADER ─── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 48px 0 28px;
+}
+.section-divider:first-child { margin-top: 0; }
+.section-divider-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--text3);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── QUESTION CARD ─── */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.q-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.q-card:hover::before { opacity: 1; }
+.q-card:hover { border-color: var(--border2); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.q-card.answered { border-color: rgba(64,145,108,0.4); }
+.q-card.answered-wrong { border-color: rgba(192,57,43,0.35); }
+
+.q-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.q-num-badge {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text3);
+}
+.q-num-badge.active { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.3); color: var(--gold2); }
+.q-label {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text);
+  font-weight: 500;
+  padding-top: 6px;
+}
+
+.q-narasi {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--gold3);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 0 0 16px 52px;
+  font-size: 13.5px;
+  line-height: 1.72;
+  color: var(--text2);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+}
+.q-narasi div + div { margin-top: 4px; }
+
+.q-stem {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold2);
+  margin: 0 0 16px 52px;
+  line-height: 1.5;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16.5px;
+}
+
+/* ─── OPTIONS ─── */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 52px;
+}
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text2);
+  user-select: none;
+}
+.opt:hover {
+  background: var(--surface3);
+  border-color: var(--border2);
+  color: var(--text);
+}
+.opt input { display: none; }
+.opt-key {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text3);
+  transition: all 0.15s;
+  margin-top: 1px;
+}
+.opt:hover .opt-key { border-color: var(--gold3); color: var(--gold2); }
+.opt.selected {
+  background: rgba(45,106,79,0.12);
+  border-color: rgba(64,145,108,0.45);
+  color: var(--text);
+}
+.opt.selected .opt-key {
+  background: var(--green2);
+  border-color: var(--green2);
+  color: #fff;
+}
+.opt.correct {
+  background: rgba(45,106,79,0.15);
+  border-color: var(--green3);
+  color: var(--text);
+}
+.opt.correct .opt-key {
+  background: var(--green3);
+  border-color: var(--green3);
+  color: #fff;
+}
+.opt.wrong {
+  background: rgba(192,57,43,0.1);
+  border-color: rgba(192,57,43,0.4);
+  color: #e8a8a0;
+}
+.opt.wrong .opt-key {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+/* ─── KUNCI ─── */
+.kunci-area { margin-left: 52px; margin-top: 12px; }
+.kunci-btn {
+  background: none;
+  border: 1px dashed var(--border2);
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.kunci-btn:hover { border-color: var(--gold3); color: var(--gold2); }
+.kunci-reveal {
+  display: none;
+  margin-top: 8px;
+  padding: 8px 14px;
+  background: rgba(45,106,79,0.1);
+  border: 1px solid rgba(64,145,108,0.25);
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--green3);
+}
+.kunci-reveal.show { display: block; }
+
+/* ─── SUBMIT AREA ─── */
+.submit-zone {
+  text-align: center;
+  padding: 32px 0 60px;
+}
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: #0d0f0e;
+  border: none;
+  padding: 18px 56px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 0 0 rgba(201,168,76,0);
+}
+.btn-submit:hover {
+  background: var(--gold2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.25);
+}
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn-submit-icon { font-size: 18px; }
+
+/* ─── MODAL OVERLAY ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px;
+  overflow-y: auto;
+}
+.modal-overlay.active { display: flex; }
+
+.result-modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  max-width: 640px;
+  width: 100%;
+  overflow: hidden;
+  animation: modalUp 0.4s cubic-bezier(0.34,1.4,0.64,1) both;
+  margin: auto;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+}
+@keyframes modalUp {
+  from { opacity:0; transform: translateY(40px) scale(0.96); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+/* Modal hero section */
+.modal-hero {
+  position: relative;
+  padding: 48px 40px 36px;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.modal-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.modal-ornament {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 16px;
+  display: block;
+  filter: drop-shadow(0 4px 20px rgba(201,168,76,0.3));
+}
+.modal-grade-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 18px;
+}
+.modal-grade-badge.mumtaz { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: var(--gold2); }
+.modal-grade-badge.jayyid-jiddan { background: rgba(64,145,108,0.15); border: 1px solid rgba(64,145,108,0.3); color: var(--green3); }
+.modal-grade-badge.jayyid { background: rgba(64,145,108,0.1); border: 1px solid rgba(64,145,108,0.2); color: var(--green2); }
+.modal-grade-badge.maqbul { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.15); color: var(--gold3); }
+.modal-grade-badge.rasib { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.25); color: #e07070; }
+
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.modal-subtitle {
+  font-size: 14px;
+  color: var(--text2);
+  font-weight: 300;
+  line-height: 1.5;
+}
+.score-display {
+  margin: 28px 0 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+}
+.score-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 88px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold2);
+}
+.score-denom {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: var(--text3);
+  font-weight: 400;
+}
+
+/* Stats row */
+.modal-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+.stat-cell {
+  padding: 22px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-val.c { color: var(--green3); }
+.stat-val.w { color: var(--red2); }
+.stat-val.e { color: var(--text3); }
+.stat-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+/* Evaluation section */
+.modal-eval {
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--border);
+}
+.eval-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eval-heading::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 18px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+.eval-items { display: flex; flex-direction: column; gap: 10px; }
+.eval-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 14px;
+}
+.eval-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.eval-icon.red { background: rgba(192,57,43,0.15); }
+.eval-icon.yellow { background: rgba(201,168,76,0.12); }
+.eval-icon.green { background: rgba(64,145,108,0.12); }
+.eval-content { min-width: 0; }
+.eval-topic {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.eval-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.eval-score-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.eval-score-badge.bad { background: rgba(192,57,43,0.15); color: #e07070; border: 1px solid rgba(192,57,43,0.2); }
+.eval-score-badge.ok { background: rgba(201,168,76,0.1); color: var(--gold2); border: 1px solid rgba(201,168,76,0.15); }
+.eval-score-badge.good { background: rgba(64,145,108,0.12); color: var(--green3); border: 1px solid rgba(64,145,108,0.2); }
+
+/* Empty eval */
+.eval-perfect {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: var(--green3);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+}
+
+/* Modal actions */
+.modal-actions {
+  padding: 24px 32px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-modal {
+  flex: 1;
+  min-width: 120px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  border: none;
+}
+.btn-modal.secondary {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+}
+.btn-modal.secondary:hover { background: var(--surface3); color: var(--text); }
+.btn-modal.primary {
+  background: var(--gold);
+  color: #0d0f0e;
+}
+.btn-modal.primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+footer strong { color: var(--gold3); }
+
+@media (max-width: 600px) {
+  .hero-stats { flex-direction: column; border: none; gap: 0; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border2); }
+  .hero-stat:last-child { border-bottom: none; }
+  .options { margin-left: 0; }
+  .q-narasi, .q-stem, .kunci-area { margin-left: 0; }
+  .q-card { padding: 24px 18px; }
+  .modal-hero { padding: 36px 24px 28px; }
+  .score-num { font-size: 64px; }
+  .modal-eval, .modal-actions { padding: 20px; }
+  .eval-item { grid-template-columns: auto 1fr; }
+  .eval-score-badge { grid-column: 2; margin-left: 48px; margin-top: -2px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Ujian Sekolah · PAI · TP 2025/2026</div>
+    <h1 class="hero-title">Latihan Soal<br><em>Pendidikan Agama Islam</em></h1>
+    <p class="hero-sub">SMK Informatika Pesat — Kerjakan dengan jujur dan penuh tanggung jawab</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val">40</span>
+        <span class="hero-stat-lbl">Soal</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">PG</span>
+        <span class="hero-stat-lbl">Pilihan Ganda</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">100</span>
+        <span class="hero-stat-lbl">Nilai Maks</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="sticky-bar">
+  <div class="sticky-inner">
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-text"><strong id="answeredCount">0</strong> / 40 dijawab</div>
+  </div>
+</div>
+
+<main id="quizMain"></main>
+
+<div class="submit-zone">
+  <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()">
+    <span class="btn-submit-icon">✦</span>
+    Kumpulkan Jawaban
+  </button>
+</div>
+
+<footer>
+  <strong>SMK Informatika Pesat</strong> · Latihan PAI · Tahun Pelajaran 2025/2026
+</footer>
+
+<!-- ─── RESULT MODAL ─── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="result-modal">
+
+    <div class="modal-hero">
+      <div class="modal-hero-bg" id="modalBg"></div>
+      <span class="modal-ornament" id="mOrnament">🏆</span>
+      <div class="modal-grade-badge" id="mGradeBadge">Mumtaz</div>
+      <h2 class="modal-title" id="mTitle">Luar Biasa!</h2>
+      <p class="modal-subtitle" id="mSubtitle"></p>
+      <div class="score-display">
+        <span class="score-num" id="mScore">0</span>
+        <span class="score-denom">/ 100</span>
+      </div>
+    </div>
+
+    <div class="modal-stats">
+      <div class="stat-cell">
+        <div class="stat-val c" id="stBenar">0</div>
+        <div class="stat-lbl">✓ Benar</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val w" id="stSalah">0</div>
+        <div class="stat-lbl">✗ Salah</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val e" id="stKosong">0</div>
+        <div class="stat-lbl">— Kosong</div>
+      </div>
+    </div>
+
+    <div class="modal-eval">
+      <h3 class="eval-heading">Evaluasi Materi</h3>
+      <div class="eval-items" id="evalItems"></div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-modal secondary" onclick="retryQuiz()">↺ Ulangi Latihan</button>
+      <button class="btn-modal primary" onclick="closeModal()">Lihat Pembahasan</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─── DATA SOAL ───
+const SOAL = [
+  { no:1, bab:"Ibadah Sunnah", soal:"Perhatikan pernyataan berikut ini!", narasi:"Ahmad selalu berusaha melaksanakan shalat tahajud setiap malam, meskipun tidak ada kewajiban yang mengharuskannya. Ia merasa lebih tenang dan dekat dengan Allah ketika menjalankannya. Namun, pada suatu malam karena sangat kelelahan, ia tidak melaksanakannya dan ia tidak merasa berdosa karenanya.", stem:"Berdasarkan narasi di atas, yang dimaksud dengan ibadah sunnah adalah...", opsi:["Amalan yang wajib dikerjakan dan berdosa jika ditinggalkan","Amalan yang jika dikerjakan mendapat pahala, dan berdosa jika ditinggalkan","Amalan yang jika dikerjakan mendapat pahala, namun tidak berdosa jika ditinggalkan","Amalan yang tidak mendatangkan pahala maupun dosa","Amalan yang hanya boleh dikerjakan oleh orang tertentu saja"], kunci:"C" },
+  { no:2, bab:"Sunnah Nabi", soal:"Perhatikan narasi berikut!", narasi:"Ketika Rasulullah SAW melakukan perjalanan, beliau mencontohkan cara shalat di atas kendaraan. Para sahabat kemudian meriwayatkan perbuatan tersebut dan menjadikannya sebagai dasar hukum dalam beribadah.", stem:"Berdasarkan narasi di atas, macam sunnah yang menjadi dasar ibadah tersebut adalah...", opsi:["Sunnah Qawliyah","Sunnah Fi'liyyah","Sunnah Taqririyyah","Sunnah Muakadah","Sunnah Ghairu Muakadah"], kunci:"B" },
+  { no:3, bab:"Sunnah Nabi", soal:"Suatu ketika seorang sahabat melakukan suatu perbuatan di hadapan Rasulullah SAW. Rasulullah tidak melarang dan tidak pula memerintahkannya, beliau hanya diam sebagai tanda persetujuan.", stem:"Macam sunnah yang dimaksud dalam ilustrasi tersebut adalah...", opsi:["Sunnah Qawliyah","Sunnah Fi'liyyah","Sunnah Taqririyyah","Sunnah Muakadah","Sunnah Ghairu Muakadah"], kunci:"C" },
+  { no:4, bab:"Sunnah Muakadah", soal:"Perhatikan jenis-jenis ibadah berikut!", narasi:"1. Shalat rawatib\n2. Shalat tahajud\n3. Shalat qabliyyah isya\n4. Shalat dhuha\n5. Puasa Senin-Kamis", stem:"Dari daftar di atas, yang termasuk ibadah sunnah yang selalu dikerjakan Rasulullah SAW dan tidak pernah ditinggalkan (Sunnah Muakadah) adalah...", opsi:["1, 2, dan 3","1, 2, dan 4","2, 3, dan 5","3, 4, dan 5","1, 3, dan 5"], kunci:"B" },
+  { no:5, bab:"Sunnah Ghairu Muakadah", soal:"Perhatikan narasi berikut!", narasi:"Budi adalah seorang siswa yang rajin berpuasa Senin-Kamis, namun kadang ia melewatkannya ketika ada ujian. Sementara itu, ia tidak pernah melewatkan shalat rawatib.", stem:"Berdasarkan ilustrasi tersebut, puasa Senin-Kamis yang dilakukan Budi termasuk jenis sunnah...", opsi:["Sunnah Muakadah karena selalu dikerjakan Rasulullah","Sunnah Fi'liyyah karena merupakan perbuatan Nabi","Sunnah Ghairu Muakadah karena kadang dikerjakan kadang ditinggalkan Nabi","Sunnah Taqririyyah karena disetujui Rasulullah","Sunnah Wajib karena harus dikerjakan setiap minggu"], kunci:"C" },
+  { no:6, bab:"Keutamaan Wudhu", soal:"Perhatikan narasi berikut!", narasi:"Seorang muslim yang rajin berwudhu dan menjaga kesuciannya sepanjang hari. Setiap kali berwudhu, ia merasakan ketenangan hati yang luar biasa. Ia juga merasa bahwa dosa-dosanya ikut 'luruh' bersama tetesan air wudhunya, sebagaimana dijelaskan dalam hadits Rasulullah SAW.", stem:"Berdasarkan narasi tersebut, keutamaan wudhu yang paling tepat untuk dianalisis adalah...", opsi:["Wudhu menjadikan seseorang lebih kuat secara fisik","Wudhu menghapus dosa-dosa kecil yang mengalir bersama tetesan air","Wudhu menjadikan seseorang lebih kaya rezeki","Wudhu hanya berfungsi sebagai syarat sahnya shalat","Wudhu membuat seseorang terhindar dari penyakit"], kunci:"B" },
+  { no:7, bab:"Keutamaan Wudhu", soal:"Rasulullah SAW bersabda dalam hadits yang diriwayatkan oleh Bukhari dan Muslim bahwa umat Nabi akan dipanggil pada hari kiamat dalam keadaan bercahaya pada anggota wudhunya.", stem:"Keutamaan menjaga wudhu berdasarkan hadits tersebut adalah...", opsi:["Mendapat syafaat di hari kiamat","Bercahaya pada anggota wudhu di hari kiamat","Masuk surga tanpa hisab","Dijauhkan dari siksa kubur","Mendapat derajat tertinggi di surga"], kunci:"B" },
+  { no:8, bab:"Dalil Wudhu", soal:"Perhatikan pernyataan berikut!", narasi:"Dalam QS. Al-Baqarah ayat 222, Allah menyatakan mencintai orang-orang yang bertaubat dan mensucikan diri. Seorang ulama menjelaskan bahwa menjaga wudhu merupakan salah satu bentuk mensucikan diri yang dicintai Allah.", stem:"Dari narasi di atas, dalil dan hikmah wudhu yang dapat dianalisis adalah...", opsi:["Wudhu hanya diwajibkan sebelum shalat saja","Wudhu merupakan bentuk pensucian diri yang dicintai Allah berdasarkan QS. Al-Baqarah: 222","Wudhu tidak memiliki kaitan dengan kecintaan Allah","Wudhu cukup dilakukan sekali sehari","Wudhu hanya berlaku bagi laki-laki saja"], kunci:"B" },
+  { no:9, bab:"Hikmah Wudhu", soal:"Dalam sebuah hadits disebutkan bahwa barangsiapa tidur dalam keadaan suci (berwudhu), malaikat akan mendoakan ampunan untuknya sepanjang malam.", stem:"Hikmah yang dapat diambil dari hadits tersebut dalam konteks menjaga wudhu adalah...", opsi:["Tidur sambil berwudhu membuat tidur lebih nyenyak","Malaikat mendoakan ampunan bagi orang yang tidur dalam keadaan berwudhu","Berwudhu sebelum tidur adalah wajib hukumnya","Orang yang tidur berwudhu tidak akan mimpi buruk","Berwudhu sebelum tidur membuat awet muda"], kunci:"B" },
+  { no:10, bab:"Hikmah Wudhu", soal:"Perhatikan narasi berikut!", narasi:"Seorang siswa bernama Rizky selalu menjaga wudhunya. Ia berwudhu dengan sempurna meski dalam kondisi sulit, memperbanyak langkah ke masjid, dan selalu menunggu shalat berikutnya setelah shalat. Gurunya menjelaskan bahwa hal ini sesuai dengan hadits HR. Muslim no. 251.", stem:"Berdasarkan analisis mendalam terhadap narasi tersebut, apa hikmah terbesar yang diperoleh Rizky dari kebiasaannya tersebut?", opsi:["Rizky akan menjadi orang paling kaya di kelasnya","Rizky mendapat penghapusan dosa dan peninggian derajat di sisi Allah","Rizky akan bebas dari semua kewajiban ibadah lainnya","Rizky tidak perlu lagi melaksanakan ibadah sunnah lainnya","Rizky akan langsung masuk surga tanpa melalui hisab"], kunci:"B" },
+  { no:11, bab:"Shalat Dhuha", soal:"Dalam hadits HR. Muslim no. 720 disebutkan bahwa setiap persendian manusia wajib disedekahi setiap harinya, dan dua rakaat shalat dhuha mencukupi semua sedekah tersebut.", stem:"Berdasarkan dalil tersebut, waktu pelaksanaan shalat dhuha yang paling utama adalah...", opsi:["Setelah shalat subuh hingga terbit matahari","Setelah matahari terbit setinggi tombak hingga sebelum masuk waktu zuhur","Tepat pada saat matahari terbit","Setelah shalat isya hingga tengah malam","Kapan saja sepanjang hari"], kunci:"B" },
+  { no:12, bab:"Shalat Dhuha", soal:"Dalam hadits HR. Ahmad dan Tirmidzi disebutkan bahwa barangsiapa mengerjakan empat rakaat di awal siang, niscaya Allah akan mencukupkan kebutuhannya di akhir hari.", stem:"Hikmah shalat dhuha berdasarkan hadits tersebut adalah...", opsi:["Mendapat kecukupan rezeki dari Allah di akhir hari","Dibangunkan rumah megah di dunia","Dibebaskan dari semua kewajiban ibadah","Mendapat kesehatan jasmani yang prima","Diberikan kecerdasan yang luar biasa"], kunci:"A" },
+  { no:13, bab:"Shalat Dhuha", soal:"Perhatikan tabel keutamaan shalat dhuha berikut!", narasi:"• 2 rakaat: dicukupi kebutuhannya\n• 6 rakaat: dicukupi dan diselamatkan\n• 8 rakaat: ditulis sebagai ahli ibadah\n• 12 rakaat: dibangunkan rumah di surga", stem:"Berdasarkan hadits HR. Thabrani, seorang muslim yang ingin ditulis sebagai ahli ibadah karena shalat dhuha harus mengerjakan...", opsi:["2 rakaat","4 rakaat","6 rakaat","8 rakaat","12 rakaat"], kunci:"D" },
+  { no:14, bab:"Shalat Dhuha", soal:"Dalam QS. Adh-Dhuha ayat 1-2, Allah bersumpah atas waktu dhuha sebagai tanda kemuliaannya.", stem:"Jika seorang siswa bertanya mengapa kita dianjurkan shalat di waktu dhuha, jawaban terbaik berdasarkan dalil Al-Qur'an tersebut adalah...", opsi:["Karena waktu dhuha adalah waktu yang biasa-biasa saja","Karena waktu dhuha dimuliakan Allah hingga Ia bersumpah atasnya dalam Al-Qur'an","Karena shalat dhuha menggantikan kewajiban shalat fardhu","Karena pada waktu dhuha semua doa pasti dikabulkan","Karena waktu dhuha adalah waktu yang dilarang bekerja"], kunci:"B" },
+  { no:15, bab:"Akhlak - Kejujuran", soal:"Perhatikan narasi berikut!", narasi:"Di sebuah sekolah, terdapat dua siswa yang berbeda perilakunya. Siswa A selalu menyampaikan kondisi yang sebenarnya kepada guru, meskipun kondisi tersebut merugikan dirinya. Siswa B sering berkata tidak jujur demi menghindari masalah.", stem:"Perilaku yang mencerminkan kejujuran dalam Islam dan sesuai konsep kehidupan sehari-hari adalah...", opsi:["Perilaku Siswa B karena lebih praktis","Perilaku Siswa A karena menyampaikan kebenaran meski merugikan diri sendiri","Kedua siswa sama-sama benar tergantung situasi","Perilaku Siswa B karena lebih bijak","Tidak ada yang benar karena keduanya bersifat relatif"], kunci:"B" },
+  { no:16, bab:"Akhlak - Syaja'ah", soal:"Perhatikan narasi berikut!", narasi:"Seorang siswa melihat temannya diperlakukan tidak adil oleh sekelompok teman yang lebih kuat. Meski takut, siswa tersebut tetap berani membela temannya dan melaporkan kejadian tersebut kepada guru.", stem:"Perilaku siswa tersebut merupakan penerapan konsep syaja'ah dalam kehidupan sehari-hari, yaitu...", opsi:["Keberanian membela kebenaran meski menghadapi risiko","Sikap diam dan tidak mau ikut campur urusan orang lain","Keberanian melawan semua aturan yang ada","Sikap selalu mengutamakan kepentingan pribadi","Keberanian mengambil hak orang lain"], kunci:"A" },
+  { no:17, bab:"Akhlak - Birrul Walidain", soal:"Perhatikan narasi berikut!", narasi:"Seorang siswa selalu mendengarkan nasihat orang tuanya, membantu pekerjaan rumah tanpa disuruh, tidak membantah ketika dinasihati, dan selalu mendoakan orang tuanya setelah shalat.", stem:"Perilaku siswa tersebut mencerminkan penerapan sikap hormat dan patuh kepada orang tua yang paling tepat adalah...", opsi:["Hanya mendengarkan nasihat orang tua ketika ada keperluan","Menaati orang tua dalam segala hal tanpa terkecuali termasuk kemaksiatan","Mendengarkan, membantu, tidak membantah, dan mendoakan orang tua","Patuh hanya ketika ada imbalan dari orang tua","Menghormati orang tua hanya di depan umum saja"], kunci:"C" },
+  { no:18, bab:"Akhlak - Kerja Keras", soal:"Perhatikan narasi berikut!", narasi:"Seorang pelajar bernama Hasan selalu datang ke sekolah tepat waktu, mengerjakan tugas dengan sungguh-sungguh, dan tidak mudah menyerah ketika menghadapi kesulitan dalam belajar.", stem:"Perilaku Hasan mencerminkan sikap...", opsi:["Pemalas dan tidak bertanggung jawab","Kerja keras dan tanggung jawab dalam menuntut ilmu","Sombong dan merasa paling pintar","Terlalu ambisius dan tidak realistis","Menghindari masalah dengan bekerja terus menerus"], kunci:"B" },
+  { no:19, bab:"Akhlak - Kerja Keras", soal:"Islam mengajarkan bahwa bekerja keras adalah bagian dari ibadah. Rasulullah SAW bersabda bahwa tidak ada makanan yang lebih baik dari hasil kerja tangan sendiri.", stem:"Contoh penerapan perilaku kerja keras menurut konsep Islam dalam kehidupan sehari-hari yang paling tepat adalah...", opsi:["Menunggu rezeki datang tanpa berusaha","Bekerja dengan sungguh-sungguh dan halal sambil bertawakal kepada Allah","Bekerja keras hanya untuk kekayaan duniawi semata","Meminta-minta kepada orang lain agar lebih mudah","Bekerja hanya jika ada imbalan yang besar"], kunci:"B" },
+  { no:20, bab:"Akhlak - Keteladanan", soal:"Kisah hidup seorang tokoh:", narasi:"Seorang pengusaha sukses yang berasal dari keluarga sederhana. Ia tidak pernah menyerah meski bisnisnya bangkrut tiga kali. Setiap kegagalan ia jadikan pelajaran. Ia juga selalu menepati janjinya kepada mitra bisnis dan karyawannya, serta menyisihkan sebagian hartanya untuk zakat dan sedekah.", stem:"Nilai keteladanan yang paling tepat untuk disimpulkan dari tokoh tersebut adalah...", opsi:["Kekayaan adalah tujuan utama dalam hidup","Kegagalan harus dihindari dengan segala cara","Kerja keras, tanggung jawab, kejujuran, dan kedermawanan adalah kunci kesuksesan hakiki","Kesuksesan hanya bisa diraih oleh orang yang beruntung","Berbisnis lebih penting daripada beribadah"], kunci:"C" },
+  { no:21, bab:"Bacaan Shalat", soal:"Perhatikan bacaan doa iftitah berikut:", narasi:'"Inni wajjahtu wajhiya lilladzii fatharas samaawaati wal ardha haniifan wa maa anaa minal musyrikiin..."', stem:"Terjemahan yang tepat dari penggalan doa iftitah tersebut adalah...", opsi:["Sesungguhnya shalatku, ibadahku, hidupku dan matiku hanya untuk Allah","Sungguh kuhadapkan wajahku kepada Dzat yang menciptakan langit dan bumi dengan penuh ketulusan dan aku bukan termasuk orang musyrik","Allah Maha Besar lagi sempurna kebesaran-Nya dan Maha Suci Allah","Segala puji bagi Allah pujian yang sebanyak-banyaknya","Tidak ada sekutu bagi Allah dan aku diperintahkan untuk berserah diri"], kunci:"B" },
+  { no:22, bab:"Fiqih Jenazah", soal:"Perhatikan narasi berikut!", narasi:"Seorang perempuan meninggal dunia di sebuah kampung. Warga setempat bersiap untuk mengurus jenazahnya.", stem:"Perbedaan tata cara pengurusan jenazah perempuan dibandingkan jenazah laki-laki yang benar adalah...", opsi:["Jenazah perempuan dikafani dengan 3 lapis kain, sedangkan laki-laki 5 lapis","Jenazah perempuan dikafani dengan 5 lapis kain, sedangkan laki-laki 3 lapis","Jenazah perempuan dan laki-laki dikafani dengan jumlah kain yang sama","Jenazah perempuan tidak perlu dikafani jika sudah memakai pakaian","Jenazah perempuan dikafani dengan 7 lapis kain putih"], kunci:"B" },
+  { no:23, bab:"Fiqih Jenazah", soal:"Perhatikan narasi berikut!", narasi:"Sebuah keluarga hendak memandikan jenazah ayah mereka yang baru saja wafat. Mereka bertanya kepada ustadz tentang siapa yang paling berhak memandikan jenazah tersebut.", stem:"Berdasarkan ketentuan fiqih jenazah, yang paling berhak memandikan jenazah laki-laki dewasa adalah...", opsi:["Tetangga yang paling dekat dengan almarhum","Tokoh masyarakat atau ustadz setempat","Mahram seperti istri atau anak laki-lakinya","Semua orang boleh tanpa syarat apapun","Hanya boleh oleh laki-laki yang bukan keluarga"], kunci:"C" },
+  { no:24, bab:"Fiqih Jenazah", soal:"Dalam pengurusan jenazah, terdapat kewajiban yang bersifat fardhu kifayah bagi masyarakat Muslim.", stem:"Yang dimaksud dengan hukum fardhu kifayah dalam pengurusan jenazah adalah...", opsi:["Kewajiban yang harus dilakukan oleh setiap Muslim tanpa terkecuali","Kewajiban yang jika sudah dilakukan oleh sebagian orang maka gugur kewajiban bagi yang lain, namun jika tidak ada yang melakukan maka semua berdosa","Amalan sunnah yang dianjurkan namun tidak wajib","Kewajiban yang hanya berlaku bagi keluarga terdekat","Amalan yang bebas dilakukan atau ditinggalkan"], kunci:"B" },
+  { no:25, bab:"Fiqih Jenazah", soal:"Perhatikan tata cara pengurusan jenazah berikut ini:", narasi:"1. Memandikan jenazah\n2. Menguburkan jenazah\n3. Menshalatkan jenazah\n4. Mengkafani jenazah", stem:"Urutan tata cara pengurusan jenazah yang benar sesuai syariat Islam adalah...", opsi:["1 - 2 - 3 - 4","1 - 4 - 3 - 2","4 - 1 - 3 - 2","3 - 1 - 4 - 2","2 - 1 - 4 - 3"], kunci:"B" },
+  { no:26, bab:"Munakahat", soal:"Perhatikan hadits berikut:", narasi:'"Wahai para pemuda, barangsiapa di antara kalian mampu menikah, maka menikahlah. Sesungguhnya menikah itu lebih menundukkan pandangan dan lebih menjaga kemaluan..."', stem:"Berdasarkan hadits tersebut, tujuan utama pernikahan dalam Islam yang dapat dianalisis adalah...", opsi:["Hanya untuk mendapatkan keturunan sebanyak mungkin","Untuk menghindari kemaksiatan dan menjaga kehormatan diri","Semata-mata memenuhi kebutuhan biologis","Untuk mendapatkan harta dari pasangan","Hanya untuk memenuhi tradisi masyarakat"], kunci:"B" },
+  { no:27, bab:"Munakahat", soal:"Perhatikan narasi berikut!", narasi:"Pada sebuah prosesi pernikahan, hadir calon suami, calon istri, ayah sebagai wali, dua orang saksi laki-laki yang adil, serta diucapkannya ijab qabul.", stem:"Berdasarkan narasi tersebut, rukun nikah yang terpenuhi adalah...", opsi:["Calon suami, calon istri, dan ijab qabul saja","Calon suami, calon istri, wali, dua saksi, dan ijab qabul","Calon suami, wali, dan dua saksi saja","Ijab qabul dan dua saksi saja","Wali, dua saksi, dan mahar saja"], kunci:"B" },
+  { no:28, bab:"Munakahat", soal:"Perhatikan narasi berikut!", narasi:"Seorang pemuda bernama Dani sangat ingin menikah. Ia sudah memiliki pekerjaan tetap dan mampu secara finansial. Namun, ia merasa tidak terlalu khawatir terjerumus dalam kemaksiatan karena imannya cukup kuat.", stem:"Berdasarkan kondisi tersebut, hukum pernikahan bagi Dani adalah...", opsi:["Wajib karena sudah mampu secara finansial","Haram karena masih muda","Sunnah karena sudah mampu namun tidak khawatir terjerumus maksiat","Makruh karena belum siap mental","Mubah karena kondisinya tidak jelas"], kunci:"C" },
+  { no:29, bab:"Munakahat", soal:"Perhatikan pernyataan berikut!", narasi:"Seorang suami wajib memberikan nafkah, pakaian, dan tempat tinggal kepada istrinya. Di sisi lain, istri berhak mendapatkan perlakuan yang baik dan bimbingan agama dari suaminya.", stem:"Berdasarkan narasi tersebut, hubungan hak dan kewajiban suami istri yang tepat adalah...", opsi:["Kewajiban istri lebih banyak daripada suami","Kewajiban suami memberikan nafkah sekaligus menjadi hak yang harus diterima istri","Suami tidak memiliki kewajiban selain memberi mahar","Istri tidak memiliki hak apapun atas suaminya","Hak dan kewajiban hanya berlaku bagi istri saja"], kunci:"B" },
+  { no:30, bab:"Bacaan Shalat", soal:"Perhatikan bacaan ruku' berikut:", narasi:'"Subhaana rabbiyal \'azhiimi wa bihamdih"', stem:"Terjemahan yang tepat dari bacaan ruku' tersebut adalah...", opsi:["Maha Suci Tuhanku Yang Maha Tinggi dan segala puji bagi-Nya","Maha Suci Tuhanku Yang Maha Agung dan segala puji bagi-Nya","Maha Besar Tuhanku Yang Maha Kuasa","Maha Suci Allah yang menciptakan langit dan bumi","Segala puji bagi Allah Tuhan semesta alam"], kunci:"B" },
+  { no:31, bab:"Bacaan Shalat", soal:"Perhatikan terjemahan Surah Al-Fatihah berikut:", narasi:'"Iyyaaka na\'budu wa iyyaaka nasta\'iin"', stem:"Terjemahan yang tepat dari ayat Al-Fatihah tersebut adalah...", opsi:["Segala puji bagi Allah Tuhan seluruh alam","Tunjukilah kami jalan yang lurus","Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan","Pemilik hari pembalasan","Yang Maha Pengasih lagi Maha Penyayang"], kunci:"C" },
+  { no:32, bab:"Thaharah", soal:"Perhatikan bacaan niat berikut:", narasi:'"Nawaitul wudhuu-a liraf\'il hadatsil ashghari fardhal lillaahi ta\'aalaa"', stem:"Bacaan niat tersebut merupakan niat untuk...", opsi:["Niat mandi wajib","Niat tayammum","Niat wudhu untuk menghilangkan hadats kecil karena Allah","Niat shalat fardhu","Niat puasa Ramadan"], kunci:"C" },
+  { no:33, bab:"Shalat Fardhu", soal:'Dalam sebuah hadits disebutkan: "Shalat adalah tiang agama. Barangsiapa mendirikannya maka ia telah menegakkan agama, dan barangsiapa meninggalkannya maka ia telah meruntuhkan agama."', stem:"Makna yang paling tepat dari hadits tersebut adalah...", opsi:["Shalat hanyalah ritual biasa yang bisa ditinggalkan","Shalat merupakan ibadah paling utama yang menopang tegaknya agama Islam pada diri seorang muslim","Shalat hanya wajib bagi orang dewasa yang sehat","Meninggalkan shalat tidak memiliki konsekuensi apapun","Shalat boleh diganti dengan ibadah lain yang setara"], kunci:"B" },
+  { no:34, bab:"Gerakan Shalat", soal:"Perhatikan deskripsi gerakan berikut!", narasi:"Seorang mushalli berdiri tegak menghadap kiblat, lalu mengangkat kedua tangan sejajar telinga (bagi laki-laki) atau sejajar bahu (bagi perempuan), jari-jari tangan terbuka dan rapat menghadap kiblat, kemudian mengucapkan \"Allahu Akbar\".", stem:"Gerakan yang dideskripsikan tersebut adalah gerakan...", opsi:["Ruku'","Sujud","Takbiratul Ihram","I'tidal","Duduk tasyahud"], kunci:"C" },
+  { no:35, bab:"Gerakan Shalat", soal:"Perhatikan deskripsi gerakan shalat berikut!", narasi:"Seorang mushalli membungkukkan badan hingga punggung rata/lurus sejajar lantai, kepala tidak mendongak dan tidak menunduk (sejajar punggung), kedua tangan memegang lutut dengan jari terbuka, dan pandangan mengarah ke tempat sujud.", stem:"Gerakan yang dideskripsikan tersebut adalah gerakan...", opsi:["Sujud","I'tidal","Ruku'","Takbiratul Ihram","Duduk di antara dua sujud"], kunci:"C" },
+  { no:36, bab:"Gerakan Shalat", soal:"Perhatikan deskripsi gerakan shalat berikut!", narasi:"Tujuh anggota tubuh menempel lantai yaitu: dahi beserta hidung, dua telapak tangan, dua lutut, dan ujung jari kedua kaki. Dahi dan hidung harus menempel sempurna. Lengan tidak menempel lantai (terangkat). Perut tidak menempel paha.", stem:"Gerakan yang dideskripsikan tersebut adalah gerakan...", opsi:["Ruku'","I'tidal","Takbiratul Ihram","Sujud","Duduk tasyahud akhir"], kunci:"D" },
+  { no:37, bab:"Thaharah", soal:"Perhatikan bacaan niat berikut:", narasi:'"Nawaitul ghusla liraf\'il hadatsil akbari fardhal lillaahi ta\'aalaa"', stem:"Bacaan niat tersebut merupakan niat untuk...", opsi:["Niat wudhu biasa","Niat tayammum","Niat shalat fardhu","Niat mandi wajib untuk menghilangkan hadats besar karena Allah","Niat puasa sunnah"], kunci:"D" },
+  { no:38, bab:"Syarat Shalat", soal:"Perhatikan poin-poin berikut!", narasi:"1. Beragama Islam\n2. Baligh\n3. Berakal sehat\n4. Menghadap kiblat\n5. Menutup aurat\n6. Tidak sedang haid/nifas\n7. Suci dari hadats", stem:"Dari poin-poin di atas, yang termasuk SYARAT WAJIB shalat (bukan syarat sah) adalah...", opsi:["1, 2, 3, dan 6","4, 5, dan 7","1, 4, 5, dan 7","2, 3, dan 6 saja","Semua poin adalah syarat wajib"], kunci:"A" },
+  { no:39, bab:"Rukun Shalat", soal:"Perhatikan pilihan berikut!", narasi:"A. Niat\nB. Membaca Al-Fatihah\nC. Memiliki wudhu\nD. Ruku'\nE. Tuma'ninah\nF. Menghadap kiblat\nG. Salam\nH. Menutup aurat", stem:"Dari pilihan di atas, yang termasuk RUKUN SHALAT adalah...", opsi:["A, B, C, D, dan E","A, B, D, E, dan G","C, F, dan H","B, C, F, dan H","A, C, F, dan H"], kunci:"B" },
+  { no:40, bab:"Najis & Thaharah", soal:"Perhatikan narasi berikut!", narasi:"Seorang anak laki-laki berusia 6 bulan yang masih minum ASI dan belum mengonsumsi makanan lain, terkena najis air kencingnya sendiri mengenai bajunya.", stem:"Berdasarkan kasus tersebut, najis tersebut termasuk jenis najis apa dan bagaimana cara mensucikannya?", opsi:["Najis Mughallazhah, dicuci 7 kali dengan salah satunya dicampur tanah","Najis Mutawassitah, dicuci hingga hilang warna, bau, dan rasanya","Najis Mukhaffafah, cukup dipercikkan air pada bagian yang terkena najis","Najis Mughallazhah, cukup dicuci sekali dengan air bersih","Najis Mutawassitah, cukup dipercikkan air saja"], kunci:"C" }
+];
+
+const KEYS = ['A','B','C','D','E'];
+let answers = {};
+let submitted = false;
+
+// ─── RENDER ───
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderQuiz(){
+  const main = document.getElementById('quizMain');
+  main.innerHTML = '';
+
+  // Group by bab categories
+  const categories = {};
+  SOAL.forEach(s => {
+    if (!categories[s.bab]) categories[s.bab] = [];
+    categories[s.bab].push(s);
+  });
+
+  SOAL.forEach((s, idx) => {
+    const narasiLines = s.narasi ? s.narasi.split('\n').filter(l=>l.trim()) : [];
+    const narasiHtml = narasiLines.length
+      ? `<div class="q-narasi">${narasiLines.map(l=>`<div>${esc(l)}</div>`).join('')}</div>`
+      : '';
+
+    const opsiHtml = s.opsi.map((o, oi) => {
+      const k = KEYS[oi];
+      return `<label class="opt" id="opt-${s.no}-${k}" onclick="pick(${s.no},'${k}',this)">
+        <input type="radio" name="q${s.no}" value="${k}">
+        <span class="opt-key">${k}</span>
+        <span>${esc(o)}</span>
+      </label>`;
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `card-${s.no}`;
+    card.style.animationDelay = `${idx * 0.025}s`;
+    card.style.animation = `fadeUp 0.35s ease ${idx * 0.025}s both`;
+    card.innerHTML = `
+      <style>@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}</style>
+      <div class="q-header">
+        <div class="q-num-badge" id="badge-${s.no}">${String(s.no).padStart(2,'0')}</div>
+        <div class="q-label">${esc(s.soal)}</div>
+      </div>
+      ${narasiHtml}
+      <div class="q-stem">${esc(s.stem)}</div>
+      <div class="options">${opsiHtml}</div>
+      <div class="kunci-area">
+        <button class="kunci-btn" onclick="toggleKunci(${s.no},this)">Lihat kunci</button>
+        <div class="kunci-reveal" id="kunci-${s.no}">Kunci Jawaban: <strong>${s.kunci}</strong></div>
+      </div>
+    `;
+    main.appendChild(card);
+  });
+}
+
+function pick(no, key, lbl){
+  if(submitted) return;
+  answers[no] = key;
+  KEYS.forEach(k => {
+    const el = document.getElementById(`opt-${no}-${k}`);
+    if(el) el.classList.remove('selected');
+  });
+  lbl.classList.add('selected');
+  document.getElementById(`badge-${no}`).classList.add('active');
+  updateProgress();
+}
+
+function toggleKunci(no, btn){
+  const el = document.getElementById(`kunci-${no}`);
+  el.classList.toggle('show');
+  btn.textContent = el.classList.contains('show') ? 'Sembunyikan' : 'Lihat kunci';
+}
+
+function updateProgress(){
+  const n = Object.keys(answers).length;
+  document.getElementById('progFill').style.width = (n/SOAL.length*100)+'%';
+  document.getElementById('answeredCount').textContent = n;
+}
+
+// ─── SUBMIT ───
+function submitQuiz(){
+  if(submitted) return;
+  const unanswered = SOAL.length - Object.keys(answers).length;
+  if(unanswered > 0){
+    if(!confirm(`Masih ada ${unanswered} soal yang belum dijawab. Kumpulkan sekarang?`)) return;
+  }
+  submitted = true;
+  document.getElementById('btnSubmit').disabled = true;
+  highlightAnswers();
+  showResult();
+}
+
+function highlightAnswers(){
+  SOAL.forEach(s => {
+    const ua = answers[s.no];
+    const correct = document.getElementById(`opt-${s.no}-${s.kunci}`);
+    if(correct) correct.classList.add('correct');
+    if(ua){
+      if(ua !== s.kunci){
+        const wrong = document.getElementById(`opt-${s.no}-${ua}`);
+        if(wrong) wrong.classList.add('wrong');
+        document.getElementById(`card-${s.no}`).classList.add('answered-wrong');
+      } else {
+        document.getElementById(`card-${s.no}`).classList.add('answered');
+      }
+    }
+  });
+}
+
+// ─── RESULT ───
+function showResult(){
+  let benar=0, salah=0, kosong=0;
+  SOAL.forEach(s => {
+    if(!answers[s.no]) kosong++;
+    else if(answers[s.no]===s.kunci) benar++;
+    else salah++;
+  });
+  const nilai = Math.round((benar/SOAL.length)*100);
+
+  document.getElementById('stBenar').textContent = benar;
+  document.getElementById('stSalah').textContent = salah;
+  document.getElementById('stKosong').textContent = kosong;
+  document.getElementById('mScore').textContent = nilai;
+
+  // Grade
+  let grade, gradeClass, ornament, title, subtitle;
+  if(nilai>=90){grade='Mumtaz — Sangat Baik';gradeClass='mumtaz';ornament='🏆';title='Luar Biasa!';subtitle='Pencapaian luar biasa. Penguasaan materi Anda sangat memuaskan.';}
+  else if(nilai>=80){grade='Jayyid Jiddan — Baik Sekali';gradeClass='jayyid-jiddan';ornament='⭐';title='Bagus Sekali!';subtitle='Hasil yang sangat baik. Sedikit lagi untuk sempurna!';}
+  else if(nilai>=70){grade='Jayyid — Cukup Baik';gradeClass='jayyid';ornament='📗';title='Cukup Baik';subtitle='Anda telah melampaui nilai minimum. Terus tingkatkan!';}
+  else if(nilai>=60){grade='Maqbul — Perlu Perbaikan';gradeClass='maqbul';ornament='📝';title='Perlu Belajar Lagi';subtitle='Masih perlu lebih banyak latihan. Fokus pada materi di bawah!';}
+  else{grade='Rasib — Perlu Peningkatan';gradeClass='rasib';ornament='📚';title='Semangat Belajar!';subtitle='Pelajari kembali semua materi dengan lebih teliti.';}
+
+  document.getElementById('mOrnament').textContent = ornament;
+  document.getElementById('mGradeBadge').textContent = grade;
+  document.getElementById('mGradeBadge').className = `modal-grade-badge ${gradeClass}`;
+  document.getElementById('mTitle').textContent = title;
+  document.getElementById('mSubtitle').textContent = subtitle;
+
+  // BG effect per grade
+  const bg = document.getElementById('modalBg');
+  if(nilai>=80){
+    bg.style.background='radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%)';
+  } else if(nilai>=60){
+    bg.style.background='radial-gradient(ellipse 80% 60% at 50% 0%, rgba(64,145,108,0.1) 0%, transparent 70%)';
+  } else {
+    bg.style.background='radial-gradient(ellipse 80% 60% at 50% 0%, rgba(192,57,43,0.08) 0%, transparent 70%)';
+  }
+
+  // Evaluate per topic
+  buildEval(benar, salah, kosong, nilai);
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+// ─── EVALUASI MATERI ───
+function buildEval(benar, salah, kosong, nilai){
+  // Group wrong/missing by bab
+  const topicStats = {};
+  SOAL.forEach(s => {
+    if(!topicStats[s.bab]) topicStats[s.bab] = { total:0, benar:0, wrong:[], kosong:[] };
+    topicStats[s.bab].total++;
+    const ua = answers[s.no];
+    if(!ua) topicStats[s.bab].kosong.push(s.no);
+    else if(ua===s.kunci) topicStats[s.bab].benar++;
+    else topicStats[s.bab].wrong.push(s.no);
+  });
+
+  const container = document.getElementById('evalItems');
+  container.innerHTML = '';
+
+  // Sort: worst first
+  const sorted = Object.entries(topicStats).map(([bab, stat]) => {
+    const pct = stat.total > 0 ? Math.round((stat.benar/stat.total)*100) : 0;
+    return { bab, ...stat, pct };
+  }).sort((a,b) => a.pct - b.pct);
+
+  const problemTopics = sorted.filter(t => t.pct < 100);
+
+  if(problemTopics.length === 0){
+    container.innerHTML = `<div class="eval-perfect">✨ Luar biasa! Anda menjawab semua soal dengan benar. Penguasaan materi sangat sempurna.</div>`;
+    return;
+  }
+
+  // Topic descriptions
+  const topicDesc = {
+    "Ibadah Sunnah": "Memahami definisi, jenis, dan contoh ibadah sunnah",
+    "Sunnah Nabi": "Memahami macam-macam sunnah: qawliyah, fi'liyyah, taqririyyah",
+    "Sunnah Muakadah": "Ibadah sunnah yang selalu dikerjakan Rasulullah",
+    "Sunnah Ghairu Muakadah": "Ibadah sunnah yang kadang dikerjakan kadang ditinggalkan",
+    "Keutamaan Wudhu": "Pahala dan keutamaan menjaga wudhu menurut hadits",
+    "Dalil Wudhu": "Landasan Al-Qur'an dan hadits tentang wudhu",
+    "Hikmah Wudhu": "Hikmah dan manfaat spiritual menjaga wudhu",
+    "Shalat Dhuha": "Waktu, rakaat, keutamaan, dan dalil shalat dhuha",
+    "Akhlak - Kejujuran": "Penerapan sifat jujur (shiddiq) dalam kehidupan",
+    "Akhlak - Syaja'ah": "Keberanian membela kebenaran sesuai ajaran Islam",
+    "Akhlak - Birrul Walidain": "Bentuk-bentuk hormat dan bakti kepada orang tua",
+    "Akhlak - Kerja Keras": "Konsep bekerja keras sebagai bagian dari ibadah",
+    "Akhlak - Keteladanan": "Nilai-nilai akhlak mulia dalam kisah kehidupan",
+    "Bacaan Shalat": "Hafalan dan terjemahan bacaan dalam shalat",
+    "Fiqih Jenazah": "Tata cara memandikan, mengkafani, menshalatkan, menguburkan",
+    "Munakahat": "Hukum, rukun, tujuan, dan hak-kewajiban dalam pernikahan",
+    "Thaharah": "Niat dan tata cara bersuci dari hadats kecil dan besar",
+    "Shalat Fardhu": "Kedudukan dan kewajiban shalat fardhu",
+    "Gerakan Shalat": "Identifikasi dan tata cara gerakan-gerakan dalam shalat",
+    "Syarat Shalat": "Syarat wajib dan syarat sah shalat",
+    "Rukun Shalat": "Rukun-rukun yang wajib ada dalam shalat",
+    "Najis & Thaharah": "Jenis-jenis najis dan cara mensucikannya"
+  };
+
+  problemTopics.forEach(t => {
+    const wrong = t.wrong.length;
+    const kosong = t.kosong.length;
+    const missed = wrong + kosong;
+
+    let status, iconClass, iconEmoji, badgeClass;
+    if(t.pct === 0){ status='Belum dikuasai'; iconClass='red'; iconEmoji='✗'; badgeClass='bad'; }
+    else if(t.pct < 50){ status='Perlu perhatian lebih'; iconClass='red'; iconEmoji='!'; badgeClass='bad'; }
+    else if(t.pct < 75){ status='Cukup, perlu ulangan'; iconClass='yellow'; iconEmoji='~'; badgeClass='ok'; }
+    else { status='Hampir sempurna'; iconClass='green'; iconEmoji='↑'; badgeClass='good'; }
+
+    const scoreLabel = `${t.benar}/${t.total}`;
+    const desc = topicDesc[t.bab] || 'Pelajari kembali materi ini';
+
+    const el = document.createElement('div');
+    el.className = 'eval-item';
+    el.innerHTML = `
+      <div class="eval-icon ${iconClass}">${iconEmoji}</div>
+      <div class="eval-content">
+        <div class="eval-topic">${esc(t.bab)}</div>
+        <div class="eval-desc">${esc(desc)} &mdash; ${esc(status)}</div>
+      </div>
+      <div class="eval-score-badge ${badgeClass}">${scoreLabel} benar</div>
+    `;
+    container.appendChild(el);
+  });
+
+  // Summary advice
+  const veryWeak = problemTopics.filter(t => t.pct < 50);
+  if(veryWeak.length > 0){
+    const advice = document.createElement('div');
+    advice.style.cssText = 'padding:14px 16px;background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.15);border-radius:10px;font-size:13px;color:#c8a0a0;line-height:1.6;margin-top:4px;';
+    advice.innerHTML = `<strong style="color:#e07070;">💡 Saran Belajar:</strong> Fokus ulang pada ${veryWeak.length} materi yang ditandai merah di atas. Baca buku paket BAB terkait, kerjakan soal latihan, dan tanyakan kepada guru jika ada yang belum dipahami.`;
+    container.appendChild(advice);
+  }
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function retryQuiz(){
+  answers = {};
+  submitted = false;
+  closeModal();
+  renderQuiz();
+  updateProgress();
+  document.getElementById('btnSubmit').disabled = false;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Init
+renderQuiz();
+updateProgress();
+</script>
+</body>
+</html>
